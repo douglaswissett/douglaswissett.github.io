@@ -6,8 +6,8 @@ $(function(){
 
   function buildCells() {
 
-    for(var i = 0; i < 40; i++) {
-      for(var j = 0; j < 40; j++) {
+    for(var i = 0; i < 30; i++) {
+      for(var j = 0; j < 30; j++) {
         $gamebox.append('<div class="cell" id= i + "_" + j ></div>');
       }
     }
@@ -19,7 +19,24 @@ $(function(){
 
 
 
-  buildCells();
+
+
+
+
+
+
+
+
+  var game = {
+
+    startGame: function() {
+      buildCells();
+    }
+
+  };
+
+  
+  game.startGame();  
 
 });
 
