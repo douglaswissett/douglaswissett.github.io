@@ -1,0 +1,50 @@
+/* BODY LAYOUT */
+
+body {
+  margin: 0;
+  background-color: grey;
+}
+
+#container {
+  max-width: 600px;
+  height: 500px;
+  margin: 0 auto;
+  background-color: white; 
+}
+
+#scoreboard {
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+#gamebox {
+  height: 400px;
+  width: 400px;
+  margin: 0 auto;
+  padding: 0;
+  border: 5px solid black;
+}
+
+
+/* Styles */
+
+
+.cell {
+  height: 10px;
+  width: 10px;
+  float: left;
+  background-color: #ccc;
+}
+
+.cellSnake {
+  background-color: green;
+}
+
+.cellFood {
+  background-color: red;
+}
+
+
+
+
