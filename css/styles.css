@@ -10,6 +10,10 @@ body {
   height: 540px;
   margin: 0 auto;
   background-color: white; 
+  border-radius: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  left: 1000px;
 }
 
 #scoreboard {
@@ -25,14 +29,32 @@ body {
   padding: 0;
   border: 5px solid black;
   text-align: center;
-  font-size: 2em;
+  font-size: 3em;
   font-weight: bold;
+  position: relative;
 }
 
 #gameMessage {
-  font-size: 1em;
+  font-size: 0.7em;
+  color: green;
+  position: absolute;
+  top: 150px;
+  left: 80px;
 }
 
+#gameMessage2 {
+  font-size: .7em;
+  color: black;
+  position: absolute;
+  top: 210px;
+  left: 80px;
+}
+
+#sidebar {
+  position: absolute;
+  top: 200px;
+  left: 40px;
+}
 
 /* Styles */
 

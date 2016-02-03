@@ -26,21 +26,23 @@
 
 $(function(){
  
-
+  var $container = $('#container');
   var $gamebox = $('#gamebox');
   var speed = 100;
-  var score = 0;
   var highscore = 0;
 
   var snake = ['10_8','10_7','10_6']; // array to hold snake 
   var tail;
   var head;
   var direction = 'right';
+  var score = 0;
+
 
   var snake2 = ['10_28','10_29','10_30']; // array to hold snake2 
   var tail2;
   var head2;
   var direction2 = 'left';
+  var score2 = 0;
 
 
 
@@ -204,7 +206,7 @@ $(function(){
 
 
       // TODO add player 2 scoring
-      score++;
+      score2++;
     }
   }
 
@@ -214,29 +216,33 @@ $(function(){
     if(row < 0) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score > highscore) { highscore = score; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     } else if(col < 0) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score > highscore) { highscore = score; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     } else if(row > 30) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score > highscore) { highscore = score; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     } else if(col > 30) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score > highscore) { highscore = score; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     }
@@ -245,29 +251,33 @@ $(function(){
     if(row2 < 0) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score2 > highscore) { highscore = score2; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     } else if(col2 < 0) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score2 > highscore) { highscore = score2; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     } else if(row2 > 30) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score2 > highscore) { highscore = score2; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     } else if(col2 > 30) {
       clearScreen();
       clearTimeout(timerId);
-      highscore = score;
-      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+      if(score2 > highscore) { highscore = score2; }
+      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
 
       return true;
     }
@@ -326,7 +336,35 @@ $(function(){
     }
   };
   // init game
-  game.startGame();  
+  game.startGame(); 
+
+
+
+
+
+  // ***********************     TESTING      // ***********************
+
+
+
+
+  function slide() {
+    $container.velocity({
+      left: "0px",
+    }, {
+      duration: 500, 
+      easing: "linear"
+    });
+  }
+
+  $('button').on('click', function() {
+    slide();
+  });
+
+
+
+
+
+
 });
 
 
