@@ -2,7 +2,7 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.0.1
+//  VERSION   - 2.1.1
 //  PREVIOUS  - 1.0.4
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
@@ -293,6 +293,13 @@ $(function(){
     }
     $gamebox.text('Game Over!');
     running = false;
+
+
+
+  // $gamebox.velocity({ height: 0 })
+  //   .velocity({width:0});
+
+
   }
 
 
@@ -353,12 +360,19 @@ $(function(){
 
 
 
+
+
+   //$container.velocity({ width: 540 }, [ 250, 15 ]);
+
+
+
+
   // beta
   function slide() {
     $container.velocity({
       left: "0px",
     }, {
-      duration: 500, 
+      duration: 200, 
       easing: "linear"
     });
   }
@@ -366,7 +380,7 @@ $(function(){
   $('#newGame').on('click', function() {
 
     slide();
-    setTimeout(callGame, 600); 
+    setTimeout(callGame, 300); 
 
   });
 
