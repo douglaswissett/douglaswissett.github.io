@@ -2,7 +2,7 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.4.1
+//  VERSION   - 2.4.4
 //  PREVIOUS  - 2.1.1
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
@@ -14,10 +14,10 @@
 // TODO
 // 
 // - implement self hit detection   - 
-// - add highscore feature          - highscore not updating, buggyg
+// - add highscore feature          - fixed 
 // - 2 player feature               - fixed
-// - difficulty level               - 
-//
+// - difficulty level               - change speed settings
+// - single player mode             - 
 //
 
 
@@ -28,7 +28,7 @@ $(function(){
  
   var $container = $('#container');
 
-  var speed = 100;
+  var speed = 500;
   var highscore = 0;
   var running = false;
 
@@ -226,8 +226,16 @@ $(function(){
   }
 
   function addScore() {
-    if(score > highscore) { highscore = score; }
-    if(score2 > highscore) { highscore = score2; }
+    if(score > score2) {
+      if(score > highscore) {
+        highscore = score;
+      }
+    } else if(score2 > score) {
+      if(score2 > highscore) {
+        highscore = score2;
+      }
+    }
+    return highscore;
   }
 
   // clear game window 
@@ -307,7 +315,7 @@ $(function(){
 
 
       checkHit();
-
+      addScore();
       $('#scoreboard').text('Highscore: ' + highscore);
 
       // if checkHit === true, stop game
@@ -321,6 +329,7 @@ $(function(){
   function callGame() {
     if(running) return;
     running = true;
+
     // guarded
     game.startGame();
   }
@@ -339,15 +348,10 @@ $(function(){
 
 
 
-  // $('#nextGame').on('click',function(){
-  //   // start new game
-  //   if(running) return;
-  //   $container.append("<div id='gamebox'></div>");
-  //   reset();
-  //   callGame();
-  // });
-
-
+  $('#speedRange').on('input', function(e){
+    console.log(speed);
+    setSpeed();
+  });
 
 
 
@@ -359,11 +363,9 @@ $(function(){
 
   // beta
   function slide() {
-    $container.velocity({ left: "0px"},
+    $container.velocity({ left: "500px"},
     { duration: 200, easing: "linear"});
   }
-
-  
 
   $('#newGame').on('click', function() {
     if(running) return;
@@ -379,12 +381,26 @@ $(function(){
   });
 
 
-
-
+  function setSpeed() {
+    speed = 100;
+    return speed;
+  }
 
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

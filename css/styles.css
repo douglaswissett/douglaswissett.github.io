@@ -8,16 +8,49 @@ body {
 h1 {
   display: inline-block;
   float: left;
+  font-size: 2.5em;
+  position: absolute;
+  top: 20px;
+  left: 80px;
+
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+
+nav {
+  height: 300px;
+  width: 140px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 180px;
+  left: 130px;
+
+  box-shadow: 0px 0px 20px black inset;
 }
 
 #container {
   max-width: 600px;
   height: 540px;
   margin: 40px auto;
-  background-color: white; 
+  background-color: #ccc; 
   border-radius: 20px;
-  position: relative;
-  left: 1000px;
+  position: absolute;
+  left: 1500px;
+
+  box-shadow: 0px 0px 30px black;
 }
 
 #scoreboard {
@@ -54,10 +87,16 @@ h1 {
   left: 80px;
 }
 
-#sidebar {
-  position: absolute;
-  top: 200px;
-  left: 40px;
+#newGame {
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.25em;
+  outline: none;
+  margin-bottom: 60px;
+}
+
+#speedSetting {
+  padding: 5px;
 }
 
 /* Styles */
