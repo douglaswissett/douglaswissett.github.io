@@ -2,10 +2,10 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 1.0.4
+//  VERSION   - 2.0.0
+//  PREVIOUS  - 1.0.4
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
-//
 //
 //**********************************************************************
 $(function(){
@@ -21,10 +21,10 @@ $(function(){
   var head;
   var direction = 'right';
 
-  // var snake2 = ['10_28','10_29','10_30']; // array to hold snake2 
-  // var tail2;
-  // var head2;
-  // var direction2 = 'left';
+  var snake2 = ['10_28','10_29','10_30']; // array to hold snake2 
+  var tail2;
+  var head2;
+  var direction2 = 'left';
 
 
 
@@ -56,26 +56,26 @@ $(function(){
     }
 
     // player 2 directions
-    // switch(dir) {
-    //   case 87:
-    //     if(direction === 'down') return;
-    //       direction = 'up';
-    //     break;
-    //   case 68:
-    //     if(direction === 'left') return;
-    //     direction = 'right';
-    //     break;
-    //   case 83:
-    //     if(direction === 'up') return;
-    //     direction = 'down';
-    //     break;
-    //   case 65:
-    //     if(direction === 'right') return;
-    //     direction = 'left';
-    //     break;
-    //   default:
-    //     direction;
-    // }
+    switch(dir) {
+      case 87:
+        if(direction2 === 'down') return;
+          direction2 = 'up';
+        break;
+      case 68:
+        if(direction2 === 'left') return;
+        direction2 = 'right';
+        break;
+      case 83:
+        if(direction2 === 'up') return;
+        direction2 = 'down';
+        break;
+      case 65:
+        if(direction2 === 'right') return;
+        direction2 = 'left';
+        break;
+      default:
+        direction2;
+    }
   });
 
   function buildCells() {
@@ -87,14 +87,14 @@ $(function(){
   }    
 
   function buildSnake() {
-    // spawn snake 1
+    // render snake 1
     $('#10_8').addClass('snake');
     $('#10_7').addClass('snake');
     $('#10_6').addClass('snake');
-    // spawn snake 2
-    // $('#10_28').addClass('snake');
-    // $('#10_29').addClass('snake');
-    // $('#10_30').addClass('snake');
+    // render snake 2
+    $('#10_28').addClass('snake2');
+    $('#10_29').addClass('snake2');
+    $('#10_30').addClass('snake2');
   }
 
   function generateFood() {
@@ -112,8 +112,8 @@ $(function(){
     tail = snake.pop();
     $('#'+tail).removeClass('snake');
 
-    // tail2 = snake2.pop();
-    // $('#'+tail2).removeClass('snake');
+    tail2 = snake2.pop();
+    $('#'+tail2).removeClass('snake2');
   }
 
 
@@ -122,12 +122,12 @@ $(function(){
   function moveSnake() {
     // grab snake head, get x & y position
     var newHead = snake[0].split('_');
-    row = +(newHead[0]);
-    col = +(newHead[1]);
+    row = +(newHead[0]);  // 10
+    col = +(newHead[1]);  // 8
     // depending on current direction, calculate next movement
     switch(direction) {
       case 'up':
-          row = row-1;
+        row = row-1;
         break;
       case 'right':
         col = col+1;
@@ -144,29 +144,29 @@ $(function(){
     snake.unshift(head);
     $('#'+head).addClass('snake');
 
-    // // grab snake head, get x & y position
-    // var newHead = snake[0].split('_');
-    // row = +(newHead[0]);
-    // col = +(newHead[1]);
-    // // depending on current direction, calculate next movement
-    // switch(direction) {
-    //   case 'up':
-    //       row = row-1;
-    //     break;
-    //   case 'right':
-    //     col = col+1;
-    //     break;
-    //   case 'down':
-    //     row = row+1;
-    //     break;
-    //   case 'left':
-    //     col = col-1;
-    //     break;
-    // }
-    // // add new head position to snake array
-    // head = row +'_'+ col;
-    // snake.unshift(head);
-    // $('#'+head).addClass('snake');
+    // grab snake2 head, get x & y position
+    var newHead2 = snake2[0].split('_');
+    row2 = +(newHead2[0]);  // 10
+    col2 = +(newHead2[1]);  // 28
+    // depending on current direction, calculate next movement
+    switch(direction2) {
+      case 'up':
+        row2 = row2-1;
+        break;
+      case 'right':
+        col2 = col2+1;
+        break;
+      case 'down':
+        row2 = row2+1;
+        break;
+      case 'left':
+        col2 = col2-1;
+        break;
+    }
+    // add new head position to snake array
+    head2 = row2 +'_'+ col2;
+    snake2.unshift(head2);
+    $('#'+head2).addClass('snake2');
   }
 
   function checkForEat() {
@@ -175,12 +175,26 @@ $(function(){
       $('#'+tail).addClass('snake');
       $('#'+food).removeClass('food');
       generateFood();
+
+
+      // TODO player 1 scoring
+      score++;
+    }
+    if(head2 === food) {
+      snake2.push(tail2);
+      $('#'+tail2).addClass('snake2');
+      $('#'+food).removeClass('food');
+      generateFood();
+
+
+      // TODO add player 2 scoring
       score++;
     }
   }
 
   function checkHit() {
 
+    // player 1 wall collision detection
     if(row < 0) {
       alert('You deeeeeed!');
       clearScreen();
@@ -206,6 +220,41 @@ $(function(){
 
       return true;
     } else if(col > 30) {
+      alert('You deeeeeed!');
+      clearScreen();
+      clearTimeout(timerId);
+      highscore = score;
+      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+
+      return true;
+    }
+
+    // player 2 wall collision detection
+    if(row2 < 0) {
+      alert('You deeeeeed!');
+      clearScreen();
+      clearTimeout(timerId);
+      highscore = score;
+      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+
+      return true;
+    } else if(col2 < 0) {
+      alert('You deeeeeed!');
+      clearScreen();
+      clearTimeout(timerId);
+      highscore = score;
+      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+
+      return true;
+    } else if(row2 > 30) {
+      alert('You deeeeeed!');
+      clearScreen();
+      clearTimeout(timerId);
+      highscore = score;
+      var $message = $gamebox.append('<div id="gameMessage">'+'You scored: '+score+'</div>');
+
+      return true;
+    } else if(col2 > 30) {
       alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);

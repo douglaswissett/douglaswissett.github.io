@@ -48,6 +48,10 @@ body {
   background-color: green;
 }
 
+.snake2 {
+  background-color: black;
+}
+
 .food {
   background-color: red;
 }
