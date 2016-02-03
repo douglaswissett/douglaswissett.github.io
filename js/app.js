@@ -134,7 +134,7 @@ $(function(){
 
 
 
-  // reference from UI tutorial
+
   function moveSnake() {
     // grab snake head, get x & y position
     var newHead = snake[0].split('_');
@@ -212,7 +212,6 @@ $(function(){
 
     // player 1 wall collision detection
     if(row < 0) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
@@ -220,7 +219,6 @@ $(function(){
 
       return true;
     } else if(col < 0) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
@@ -228,7 +226,6 @@ $(function(){
 
       return true;
     } else if(row > 30) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
@@ -236,7 +233,6 @@ $(function(){
 
       return true;
     } else if(col > 30) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
@@ -247,7 +243,6 @@ $(function(){
 
     // player 2 wall collision detection
     if(row2 < 0) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
@@ -255,7 +250,6 @@ $(function(){
 
       return true;
     } else if(col2 < 0) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
@@ -263,7 +257,6 @@ $(function(){
 
       return true;
     } else if(row2 > 30) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
@@ -271,7 +264,6 @@ $(function(){
 
       return true;
     } else if(col2 > 30) {
-      alert('You deeeeeed!');
       clearScreen();
       clearTimeout(timerId);
       highscore = score;
