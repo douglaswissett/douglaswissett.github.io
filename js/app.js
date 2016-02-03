@@ -2,8 +2,8 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.1.1
-//  PREVIOUS  - 1.0.4
+//  VERSION   - 2.4.1
+//  PREVIOUS  - 2.1.1
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
 //
@@ -14,7 +14,7 @@
 // TODO
 // 
 // - implement self hit detection   - 
-// - add highscore feature          - highscore not updating, buggy
+// - add highscore feature          - highscore not updating, buggyg
 // - 2 player feature               - fixed
 // - difficulty level               - 
 //
@@ -27,10 +27,10 @@
 $(function(){
  
   var $container = $('#container');
-  //var $gamebox = $('#gamebox');
-  var running = false;
+
   var speed = 100;
   var highscore = 0;
+  var running = false;
 
   var snake = ['10_8','10_7','10_6']; // array to hold snake 
   var tail;
@@ -38,13 +38,11 @@ $(function(){
   var direction = 'right';
   var score = 0;
 
-
   var snake2 = ['10_28','10_29','10_30']; // array to hold snake2 
   var tail2;
   var head2;
   var direction2 = 'left';
   var score2 = 0;
-
 
 
   //keydown listener
@@ -301,6 +299,20 @@ $(function(){
     setTimeout(function(){$('#gamebox').remove()},2450);
   }
 
+  //re initalise game variables
+  function reset() {
+    snake = ['10_8','10_7','10_6']; // array to hold snake 
+    tail = null;
+    head = null;
+    direction = 'right';
+    score = score;
+    snake2 = ['10_28','10_29','10_30']; // array to hold snake2 
+    tail2 = null;
+    head2 = null;
+    direction2 = 'left';
+    score2 = score2;  
+  }
+
 
 
 
@@ -342,7 +354,7 @@ $(function(){
       // if checkHit === true, stop game
       if(checkHit()) {
         
-        setTimeout(function(){$container.append("<div id='gamebox'></div>")}, 4000);
+        //setTimeout(function(){$container.append("<div id='gamebox'></div>")}, 4000);
         return;
       }
       
@@ -350,14 +362,10 @@ $(function(){
     }
   };
 
-
   // init game
   function callGame() {
     if(running) return;
     running = true;
-    
-
-
     // guarded
     game.startGame();
   }
@@ -366,7 +374,9 @@ $(function(){
 
 
 
-callGame();
+
+
+
 
   // ***********************     TESTING      // ***********************
 
@@ -374,27 +384,13 @@ callGame();
 
 
 
-  $('#nextGame').on('click',function(){
-
-    buildCells();
-    buildSnake();
-    generateFood();
-
-
-    snake = ['10_8','10_7','10_6']; // array to hold snake 
-    tail = null;
-    head = null;
-    direction = 'right';
-    score = score;
-    snake2 = ['10_28','10_29','10_30']; // array to hold snake2 
-    tail2 = null;
-    head2 = null;
-    direction2 = 'left';
-    score2 = score2;
-
-    timerId = setTimeout(refresh, speed);
-
-  });
+  // $('#nextGame').on('click',function(){
+  //   // start new game
+  //   if(running) return;
+  //   $container.append("<div id='gamebox'></div>");
+  //   reset();
+  //   callGame();
+  // });
 
 
 
@@ -416,16 +412,19 @@ callGame();
     });
   }
 
-  // $('#newGame').on('click', function() {
+  $('#newGame').on('click', function() {
+    if(running) return;
 
-  //   slide();
-  //   $container.velocity({ width: 540 }, [ 250, 15 ]);
-  //   setTimeout(callGame, 500); 
+    if($('#gamebox').length === 0 ) {
+      $container.append("<div id='gamebox'></div>");
+    }
 
-  // });
+    reset();
+    slide();
+    $container.velocity({ width: 540 }, [ 250, 15 ]);
+    setTimeout(callGame, 500); 
 
-
-
+  });
 
 
 
