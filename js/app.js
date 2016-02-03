@@ -28,6 +28,7 @@ $(function(){
  
   var $container = $('#container');
   var $gamebox = $('#gamebox');
+  var running = false;
   var speed = 100;
   var highscore = 0;
 
@@ -291,6 +292,7 @@ $(function(){
       }
     }
     $gamebox.text('Game Over!');
+    running = false;
   }
 
 
@@ -336,7 +338,12 @@ $(function(){
     }
   };
   // init game
-  game.startGame(); 
+  function callGame() {
+    if(running) return;
+    running = true;
+    // guarded
+    game.startGame();
+  } 
 
 
 
@@ -346,7 +353,7 @@ $(function(){
 
 
 
-
+  // beta
   function slide() {
     $container.velocity({
       left: "0px",
@@ -356,8 +363,11 @@ $(function(){
     });
   }
 
-  $('button').on('click', function() {
+  $('#newGame').on('click', function() {
+
     slide();
+    setTimeout(callGame, 600); 
+
   });
 
 

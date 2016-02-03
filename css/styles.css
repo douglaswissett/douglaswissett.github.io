@@ -5,13 +5,17 @@ body {
   background-color: grey;
 }
 
+h1 {
+  display: inline-block;
+  float: left;
+}
+
 #container {
   max-width: 600px;
   height: 540px;
-  margin: 0 auto;
+  margin: 40px auto;
   background-color: white; 
   border-radius: 20px;
-  margin-bottom: 20px;
   position: relative;
   left: 1000px;
 }
