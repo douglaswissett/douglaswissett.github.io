@@ -2,12 +2,28 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.0.0
+//  VERSION   - 2.0.1
 //  PREVIOUS  - 1.0.4
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
 //
 //**********************************************************************
+
+
+
+// TODO
+// 
+// - implement self hit detection   - 
+// - add highscore feature          - fixed / todo 2 player scoring
+// - 2 player feature               - fixed
+// - difficulty level               - 
+//
+//
+
+
+
+
+
 $(function(){
  
 
@@ -279,20 +295,13 @@ $(function(){
 
 
 
-// TODO
-// 
-// - implement self hit detection   - 
-// - add highscore feature          - fixed
-// - 2 player feature               - progressing
-// - difficulty level               - 
+
+
 //
 //
-
-
-
-
-
-
+//    GAME LOGIC
+//
+//
 
 
   // timeout ID
@@ -301,7 +310,7 @@ $(function(){
   function refresh() {
     game.update();
   }
-  // game logic
+
   var game = {
 
     startGame: function() {
