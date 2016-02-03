@@ -205,78 +205,33 @@ $(function(){
   function checkHit() {
 
     // player 1 wall collision detection
-    if(row < 0) {
-      clearScreen();
+    if(row < 0 || col < 0 || row > 30 || col > 30) {
+      gameOver();
       clearTimeout(timerId);
-      if(score > highscore) { highscore = score; }
       var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
       var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
-      return true;
-    } else if(col < 0) {
-      clearScreen();
-      clearTimeout(timerId);
-      if(score > highscore) { highscore = score; }
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
-      return true;
-    } else if(row > 30) {
-      clearScreen();
-      clearTimeout(timerId);
-      if(score > highscore) { highscore = score; }
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
-      return true;
-    } else if(col > 30) {
-      clearScreen();
-      clearTimeout(timerId);
-      if(score > highscore) { highscore = score; }
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
+    
       return true;
     }
 
-    // player 2 wall collision detection
-    if(row2 < 0) {
-      clearScreen();
+    // player 1 wall collision detection
+    if(row2 < 0 || col2 < 0 || row2 > 30 || col2 > 30) {
+      gameOver();
       clearTimeout(timerId);
-      if(score2 > highscore) { highscore = score2; }
       var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
       var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
-      return true;
-    } else if(col2 < 0) {
-      clearScreen();
-      clearTimeout(timerId);
-      if(score2 > highscore) { highscore = score2; }
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
-      return true;
-    } else if(row2 > 30) {
-      clearScreen();
-      clearTimeout(timerId);
-      if(score2 > highscore) { highscore = score2; }
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
-      return true;
-    } else if(col2 > 30) {
-      clearScreen();
-      clearTimeout(timerId);
-      if(score2 > highscore) { highscore = score2; }
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-
+    
       return true;
     }
   }
 
+  function addScore() {
+    if(score > highscore) { highscore = score; }
+    if(score2 > highscore) { highscore = score2; }
+  }
+
   // clear game window 
-  function clearScreen() {
+  function gameOver() {
     for(var i = 0; i < 30; i++) {
       for(var j = 0; j < 30; j++) {
         $('#'+i+'_'+j).removeClass();
@@ -285,9 +240,8 @@ $(function(){
     $gamebox.text('Game Over!');
     running = false;
 
-
+    // game over animations
     function shrink(){
-      // game over animations
       $gamebox.velocity({ height: 0 })
       .velocity({width:0});
       $()
@@ -312,6 +266,8 @@ $(function(){
     direction2 = 'left';
     score2 = score2;  
   }
+
+
 
 
 
@@ -347,16 +303,15 @@ $(function(){
       removeTail();
       moveSnake();
       checkForEat();
+
+
+
       checkHit();
 
       $('#scoreboard').text('Highscore: ' + highscore);
 
       // if checkHit === true, stop game
-      if(checkHit()) {
-        
-        //setTimeout(function(){$container.append("<div id='gamebox'></div>")}, 4000);
-        return;
-      }
+      if(checkHit()) return;
       
       timerId = setTimeout(refresh, speed);
     }
@@ -404,13 +359,11 @@ $(function(){
 
   // beta
   function slide() {
-    $container.velocity({
-      left: "0px",
-    }, {
-      duration: 200, 
-      easing: "linear"
-    });
+    $container.velocity({ left: "0px"},
+    { duration: 200, easing: "linear"});
   }
+
+  
 
   $('#newGame').on('click', function() {
     if(running) return;
@@ -423,7 +376,6 @@ $(function(){
     slide();
     $container.velocity({ width: 540 }, [ 250, 15 ]);
     setTimeout(callGame, 500); 
-
   });
 
 
