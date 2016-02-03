@@ -29,6 +29,10 @@ body {
   font-weight: bold;
 }
 
+#gameMessage {
+  font-size: 1em;
+}
+
 
 /* Styles */
 
@@ -40,11 +44,11 @@ body {
   background-color: #ccc;
 }
 
-.cellSnake {
+.snake {
   background-color: green;
 }
 
-.cellFood {
+.food {
   background-color: red;
 }
 
