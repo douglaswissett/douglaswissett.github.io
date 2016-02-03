@@ -5,11 +5,19 @@ body {
   background-color: grey;
 }
 
+h1 {
+  display: inline-block;
+  float: left;
+}
+
 #container {
   max-width: 600px;
-  height: 500px;
-  margin: 0 auto;
+  height: 540px;
+  margin: 40px auto;
   background-color: white; 
+  border-radius: 20px;
+  position: relative;
+  left: 1000px;
 }
 
 #scoreboard {
@@ -19,29 +27,58 @@ body {
 }
 
 #gamebox {
-  height: 400px;
-  width: 400px;
+  height: 420px;
+  width: 420px;
   margin: 0 auto;
   padding: 0;
   border: 5px solid black;
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  position: relative;
 }
 
+#gameMessage {
+  font-size: 0.7em;
+  color: green;
+  position: absolute;
+  top: 150px;
+  left: 80px;
+}
+
+#gameMessage2 {
+  font-size: .7em;
+  color: black;
+  position: absolute;
+  top: 210px;
+  left: 80px;
+}
+
+#sidebar {
+  position: absolute;
+  top: 200px;
+  left: 40px;
+}
 
 /* Styles */
 
 
 .cell {
-  height: 13.33px;
-  width: 13.33px;
+  height: 14px;
+  width: 14px;
   float: left;
   background-color: #ccc;
 }
 
-.cellSnake {
+.snake {
   background-color: green;
 }
 
-.cellFood {
+.snake2 {
+  background-color: black;
+}
+
+.food {
   background-color: red;
 }
 
