@@ -2,8 +2,8 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.4.4
-//  PREVIOUS  - 2.1.1
+//  VERSION   - 2.6.8
+//  PREVIOUS  - 2.4.1
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
 //
@@ -18,6 +18,7 @@
 // - 2 player feature               - fixed
 // - difficulty level               - change speed settings
 // - single player mode             - 
+// - speed controls                 - added basic feature
 //
 
 
@@ -28,7 +29,7 @@ $(function(){
  
   var $container = $('#container');
 
-  var speed = 500;
+  //var speed = 500;
   var highscore = 0;
   var running = false;
 
@@ -190,6 +191,7 @@ $(function(){
       snake.push(tail);
       $('#'+tail).addClass('snake');
       $('#'+food).removeClass('food');
+      speed -= 10;
       generateFood();
       score++;
     }
@@ -197,6 +199,7 @@ $(function(){
       snake2.push(tail2);
       $('#'+tail2).addClass('snake2');
       $('#'+food).removeClass('food');
+      speed -= 10;
       generateFood();
       score2++;
     }
@@ -223,6 +226,10 @@ $(function(){
     
       return true;
     }
+
+
+    // self hit detection       TODO
+
   }
 
   function addScore() {
@@ -277,22 +284,14 @@ $(function(){
 
 
 
-
-
-
-
-
-
 //
 //
 //    GAME LOGIC
 //
 //
 
-
-  // timeout ID
-  var timerId;
   // game refresh
+  var timerId;
   function refresh() {
     game.update();
   }
@@ -311,16 +310,12 @@ $(function(){
       removeTail();
       moveSnake();
       checkForEat();
-
-
-
       checkHit();
       addScore();
       $('#scoreboard').text('Highscore: ' + highscore);
 
       // if checkHit === true, stop game
       if(checkHit()) return;
-      
       timerId = setTimeout(refresh, speed);
     }
   };
@@ -329,7 +324,6 @@ $(function(){
   function callGame() {
     if(running) return;
     running = true;
-
     // guarded
     game.startGame();
   }
@@ -345,13 +339,14 @@ $(function(){
   // ***********************     TESTING      // ***********************
 
 
-
-
-
-  $('#speedRange').on('input', function(e){
-    console.log(speed);
-    setSpeed();
+  // speed controls
+  var speed = $('#range').val();
+  var $range = $('#range');
+  $('#range').on('change', function(e){
+    speed = $range.val();
   });
+
+
 
 
 
@@ -373,7 +368,6 @@ $(function(){
     if($('#gamebox').length === 0 ) {
       $container.append("<div id='gamebox'></div>");
     }
-
     reset();
     slide();
     $container.velocity({ width: 540 }, [ 250, 15 ]);
@@ -381,10 +375,37 @@ $(function(){
   });
 
 
+
+
+
   function setSpeed() {
-    speed = 100;
-    return speed;
-  }
+
+    
+          speed = 100;
+          return speed;
+
+  //   switch(x) {
+  //     case 1:
+  //       speed = 400; 
+  //       console.log(speed);
+  //       break;
+  //     case 2:
+  //       speed = 300; 
+  //       break;
+  //     case 3:
+  //       speed = 200; 
+  //       break;
+  //     case 4:
+  //       speed = 100; 
+  //       break;
+  //     case 5:
+  //       speed = 50; 
+  //       break;
+  //     default:
+  //       speed;
+  //   }
+  //   return speed;
+   }
 
 
 
