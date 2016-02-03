@@ -17,7 +17,7 @@ h1 {
   background-color: white; 
   border-radius: 20px;
   position: relative;
-  left: 1000px;
+  /*left: 1000px;*/
 }
 
 #scoreboard {

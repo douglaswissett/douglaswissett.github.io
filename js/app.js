@@ -14,7 +14,7 @@
 // TODO
 // 
 // - implement self hit detection   - 
-// - add highscore feature          - fixed / todo 2 player scoring
+// - add highscore feature          - highscore not updating, buggy
 // - 2 player feature               - fixed
 // - difficulty level               - 
 //
@@ -27,7 +27,7 @@
 $(function(){
  
   var $container = $('#container');
-  var $gamebox = $('#gamebox');
+  //var $gamebox = $('#gamebox');
   var running = false;
   var speed = 100;
   var highscore = 0;
@@ -98,6 +98,8 @@ $(function(){
   });
 
   function buildCells() {
+    $gamebox = $('#gamebox');
+
     for(var i = 0; i < 30; i++) {
       for(var j = 0; j < 30; j++) {
         $gamebox.append('<div class="cell" id='+i+'_'+j+'></div>');
@@ -134,9 +136,6 @@ $(function(){
     tail2 = snake2.pop();
     $('#'+tail2).removeClass('snake2');
   }
-
-
-
 
   function moveSnake() {
     // grab snake head, get x & y position
@@ -194,9 +193,6 @@ $(function(){
       $('#'+tail).addClass('snake');
       $('#'+food).removeClass('food');
       generateFood();
-
-
-      // TODO player 1 scoring
       score++;
     }
     if(head2 === food) {
@@ -204,9 +200,6 @@ $(function(){
       $('#'+tail2).addClass('snake2');
       $('#'+food).removeClass('food');
       generateFood();
-
-
-      // TODO add player 2 scoring
       score2++;
     }
   }
@@ -295,11 +288,17 @@ $(function(){
     running = false;
 
 
-
-  // $gamebox.velocity({ height: 0 })
-  //   .velocity({width:0});
-
-
+    function shrink(){
+      // game over animations
+      $gamebox.velocity({ height: 0 })
+      .velocity({width:0});
+      $()
+      $('#gameMessage').remove();
+      $('#gameMessage2').remove();
+      $gamebox.text('');
+    }
+    setTimeout(shrink,1600);
+    setTimeout(function(){$('#gamebox').remove()},2450);
   }
 
 
@@ -337,24 +336,37 @@ $(function(){
       moveSnake();
       checkForEat();
       checkHit();
+
       $('#scoreboard').text('Highscore: ' + highscore);
 
       // if checkHit === true, stop game
-      if(checkHit()) return;
+      if(checkHit()) {
+        
+        setTimeout(function(){$container.append("<div id='gamebox'></div>")}, 4000);
+        return;
+      }
+      
       timerId = setTimeout(refresh, speed);
     }
   };
+
+
   // init game
   function callGame() {
     if(running) return;
     running = true;
+    
+
+
     // guarded
     game.startGame();
-  } 
+  }
 
 
 
 
+
+callGame();
 
   // ***********************     TESTING      // ***********************
 
@@ -362,7 +374,34 @@ $(function(){
 
 
 
-   //$container.velocity({ width: 540 }, [ 250, 15 ]);
+  $('#nextGame').on('click',function(){
+
+    buildCells();
+    buildSnake();
+    generateFood();
+
+
+    snake = ['10_8','10_7','10_6']; // array to hold snake 
+    tail = null;
+    head = null;
+    direction = 'right';
+    score = score;
+    snake2 = ['10_28','10_29','10_30']; // array to hold snake2 
+    tail2 = null;
+    head2 = null;
+    direction2 = 'left';
+    score2 = score2;
+
+    timerId = setTimeout(refresh, speed);
+
+  });
+
+
+
+
+
+
+
 
 
 
@@ -377,12 +416,17 @@ $(function(){
     });
   }
 
-  $('#newGame').on('click', function() {
+  // $('#newGame').on('click', function() {
 
-    slide();
-    setTimeout(callGame, 300); 
+  //   slide();
+  //   $container.velocity({ width: 540 }, [ 250, 15 ]);
+  //   setTimeout(callGame, 500); 
 
-  });
+  // });
+
+
+
+
 
 
 
