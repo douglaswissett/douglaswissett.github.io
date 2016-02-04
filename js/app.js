@@ -2,8 +2,8 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.7.8
-//  PREVIOUS  - 2.4.1
+//  VERSION   - 2.8.5
+//  PREVIOUS  - 2.7.1
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
 //
@@ -13,7 +13,7 @@
 
 // TODO
 // 
-// - implement self hit detection   - 
+// - implement self hit detection   - fixed
 // - add highscore feature          - fixed 
 // - 2 player feature               - fixed
 // - difficulty level               - change speed settings
@@ -28,7 +28,7 @@ console.log('demo app');
 $(function(){
  
   var $container = $('#container');
-  var speed = $('#range').val();              // set game speed to input value
+  var speed = 200;                            // set game speed to input value
   var highscore = 0;
   var running = false;
         // Player 1 objects
@@ -45,7 +45,7 @@ $(function(){
   var score2 = 0;
 
   function reset() {                         // reset game variables to default
-    speed = $('#range').val();
+    speed = 200; 
     snake = ['10_8','10_7','10_6'];
     tail = null;
     head = null;
@@ -321,7 +321,7 @@ $(function(){
   
   function callGame() {       // Initialise function
     if(running) return;
-    running = true;  // if game still running, don't startGame()
+    running = true;           // if game still running, don't startGame()
 
     game.startGame();
   }
@@ -365,8 +365,12 @@ $(function(){
   // speed controls
   var $range = $('#range');
   $('#range').on('change', function(e){
-    speed = $range.val();
+    speed = -($range.val());
+    console.log(speed);
   });
+
+
+
 
 
 
