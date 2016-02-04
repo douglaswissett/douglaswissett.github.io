@@ -61,6 +61,7 @@ $(function(){
 
   $(document).keydown(function(e){            // keydown listener
     var keycode = e.keyCode;                  // check keycode, set direction
+
     // player 1 directions
     switch(keycode) {
       case 38:
@@ -403,6 +404,13 @@ $(function(){
       }
     }
   }  
+
+  //  http://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+  $(window).keydown(function(e){
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+      }
+  });
 
 
 
