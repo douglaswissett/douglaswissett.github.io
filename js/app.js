@@ -261,6 +261,7 @@ $(function(){
       $container.velocity({ top: "-1000px"},
       { duration: 200, easing: "linear"});
     }, 3600);
+    setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 3600);
   }
 
 //
@@ -323,21 +324,12 @@ $(function(){
     if(running) return;
     running = true;           // if game still running, don't startGame()
 
+    $('#newGame').off();
     game.startGame();
   }
 
   //        START GAME BUTTON
-  $('#newGame').on('click', function() {              // start game on button click
-    if(running) return;                               // ignore if game already running
-    if($('#gamebox').length === 0 ) {                 // create another gamebox 
-      $container.append("<div id='gamebox'></div>");  // reset game objects to default
-    }
-    reset();
-
-    slide();
-    $container.velocity({ width: 540 }, [ 250, 15 ]);
-    setTimeout(callGame, 500); 
-  });
+  $('#newGame').on('click', newGameEvent); 
 
   // Multiplayer functionality
   var numPlayer = 1;
@@ -368,15 +360,6 @@ $(function(){
     speed = -($range.val());
     console.log(speed);
   });
-
-
-
-
-
-
-
-
-
 
   function selfHit() {                                    // single player self hit detection
     for(var i = 0; i < snake.length; i++) {
@@ -415,6 +398,27 @@ $(function(){
         e.preventDefault();
       }
   });
+
+
+
+
+
+
+
+function newGameEvent() {                             // start game on button click
+    if(running) return;                               // ignore if game already running
+    if($('#gamebox').length === 0 ) {                 // create another gamebox 
+      $container.append("<div id='gamebox'></div>");  // reset game objects to default
+    }
+    reset();
+
+    slide();
+    $container.velocity({ width: 540 }, [ 250, 15 ]);
+    setTimeout(callGame, 500); 
+  }
+
+
+
 
 
 
