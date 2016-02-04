@@ -2,7 +2,7 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.6.8
+//  VERSION   - 2.7.8
 //  PREVIOUS  - 2.4.1
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
@@ -17,13 +17,13 @@
 // - add highscore feature          - fixed 
 // - 2 player feature               - fixed
 // - difficulty level               - change speed settings
-// - single player mode             - 
-// - speed controls                 - added basic feature
+// - single player mode             - fixed
+// - speed controls                 - added basic feature (need to work on design)
 //
 
 
 
-
+console.log('demo app');
 
 $(function(){
  
@@ -111,12 +111,14 @@ $(function(){
         $gamebox.append('<div class="cell" id='+i+'_'+j+'></div>');
       }
     }
-  }    
+  }
 
   function buildSnake() {                     // render snake 1 & 2 at starting position
     $('#10_8').addClass('snake');
     $('#10_7').addClass('snake');
     $('#10_6').addClass('snake');
+  }
+  function buildSnake2() {
     $('#10_28').addClass('snake2');
     $('#10_29').addClass('snake2');
     $('#10_30').addClass('snake2');
@@ -132,6 +134,8 @@ $(function(){
   function removeTail() {
     tail = snake.pop();                       // remove player1 tail
     $('#'+tail).removeClass('snake');
+  }
+  function removeTail2() {
     tail2 = snake2.pop();                     // remove player2 tail
     $('#'+tail2).removeClass('snake2');
   }
@@ -157,8 +161,9 @@ $(function(){
     head = row +'_'+ col;                     // join x and y  
     snake.unshift(head);                      // add new head position to front snake array
     $('#'+head).addClass('snake');
+  }
 
-    // Player 2 moveSnake code block
+  function moveSnake2() {                     // player 2 movement control
     var newHead2 = snake2[0].split('_');
     row2 = +(newHead2[0]);  // 10
     col2 = +(newHead2[1]);  // 28
@@ -178,7 +183,7 @@ $(function(){
     }
     head2 = row2 +'_'+ col2;
     snake2.unshift(head2);
-    $('#'+head2).addClass('snake2');
+    $('#'+head2).addClass('snake2');    
   }
 
   function checkForEat() {                  // check if snake head position matches food position
@@ -204,20 +209,22 @@ $(function(){
     if(row < 0 || col < 0 || row > 30 || col > 30) {  
       gameOver();
       clearTimeout(timerId);
+      timerId = null;
       var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
       var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
       return true; // return true to end game
-    }                         // player 2 wall collision detection
+    }                         
+  }
+
+  function checkHit2() { // player 2 wall collision detection
     if(row2 < 0 || col2 < 0 || row2 > 30 || col2 > 30) {
       gameOver();
       clearTimeout(timerId);
+      timerId = null;
       var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
       var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
       return true;
-    }
-
-    // self hit detection       TODO
-
+    }    
   }
 
   function addScore() {               // check score, set highscore
@@ -264,23 +271,47 @@ $(function(){
   function refresh() {
     game.update();
   }
+  function refresh2() {
+    game.update2();
+  }
 
   var game = {                  // function to build game
     startGame: function() {
       buildCells();
       buildSnake();
+
+      if(numPlayer === 2) {
+        buildSnake2();
+      }
+
       generateFood(); 
       timerId = setTimeout(refresh, speed);
-    },                          // function to update game 
-    update: function() {
-      removeTail();
-      moveSnake();
-      checkForEat();
-      checkHit();
-      addScore();
-      $('#scoreboard').text('Highscore: ' + highscore);
+    },                          
+    update: function() {        // function to update game 
 
-      if(checkHit()) return;  // if checkHit === true, stop game
+      if(numPlayer === 1) {
+        removeTail();
+        moveSnake();
+        selfHit();
+        checkForEat();
+        checkHit();
+        addScore();
+
+        $('#scoreboard').text('Highscore: ' + highscore);
+        if(checkHit()) return;  // if checkHit === true, stop game
+      } else {
+        removeTail();
+        removeTail2();
+        moveSnake();
+        moveSnake2();
+        checkForEat();
+        checkHit();
+        checkHit2();
+        addScore();
+
+        $('#scoreboard').text('Highscore: ' + highscore);
+        if(checkHit() || checkHit2()) return;        
+      }
       timerId = setTimeout(refresh, speed);
     }
   };
@@ -288,6 +319,7 @@ $(function(){
   function callGame() {       // Initialise function
     if(running) return;
     running = true;  // if game still running, don't startGame()
+
     game.startGame();
   }
 
@@ -298,13 +330,16 @@ $(function(){
       $container.append("<div id='gamebox'></div>");  // reset game objects to default
     }
     reset();
-    
+
     slide();
     $container.velocity({ width: 540 }, [ 250, 15 ]);
     setTimeout(callGame, 500); 
   });
 
-
+  // Multiplayer functionality
+  var numPlayer = 1;
+  $('#single').on('click', function(){ numPlayer = 1; console.log('Single Player Mode',numPlayer); });
+  $('#multi').on('click', function(){ numPlayer = 2; console.log('Two Player Mode',numPlayer); });
 
 
 
@@ -321,14 +356,6 @@ $(function(){
 
 
 
-
-
-
-
-
-
-
-
   // ***********************     TESTING      // ***********************
 
 
@@ -340,18 +367,23 @@ $(function(){
 
 
 
+  function selfHit() {
+    for(var i = 0; i < snake.length; i++) {
+      if(snake[i+1] === head) {
+        console.log('hit!');
+      }
+    }
+  }
 
 
 
 
-//$container.velocity({ opacity: 0,top: "-50%" }, 
-  //{ display: "none" });
 
-    // setTimeout(function(){    
-    //   $container.velocity({ top: "-1000px"},
-    //   { duration: 200, easing: "linear"});
-    // }, 3600);
 
+  // var piece = snake[i].split('_');
+  // pieceX = +(piece[0]);
+  // pieceY = +(piece[0]);
+      
 
 
 
