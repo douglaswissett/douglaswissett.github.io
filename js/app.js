@@ -246,8 +246,12 @@ $(function(){
       $('#gameMessage2').remove();
       $gamebox.text('');    // clear game window text
     }
-    setTimeout(shrink,1600);              // animate container after 1600ms
-    setTimeout(function(){$('#gamebox').remove()},2450); // remove container after 2450ms     ( Game finish )
+    setTimeout(shrink,2500);              // animate container after 2500ms
+    setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
+    setTimeout(function(){    
+      $container.velocity({ top: "-1000px"},
+      { duration: 200, easing: "linear"});
+    }, 3600);
   }
 
 //
@@ -327,13 +331,18 @@ $(function(){
   // beta animations
 
   function slide() {
-    $container.velocity({ left: "500px"},
+    $container.velocity({ top: "0px"},
     { duration: 200, easing: "linear"});
   }
 
 
+//$container.velocity({ opacity: 0,top: "-50%" }, 
+  //{ display: "none" });
 
-
+    // setTimeout(function(){    
+    //   $container.velocity({ top: "-1000px"},
+    //   { duration: 200, easing: "linear"});
+    // }, 3600);
 
 
 
