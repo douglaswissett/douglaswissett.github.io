@@ -19,6 +19,8 @@
 // - difficulty level               - change speed settings
 // - single player mode             - fixed
 // - speed controls                 - added basic feature (need to work on design)
+// - disable multi btn on play      - 
+// 
 //
 
 
@@ -58,6 +60,13 @@ $(function(){
     score2 = score2;  
   }
 
+
+  //  http://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+  $(window).keydown(function(e){
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+      }
+  });
 
   $(document).keydown(function(e){            // keydown listener
     var keycode = e.keyCode;                  // check keycode, set direction
@@ -229,6 +238,42 @@ $(function(){
     }    
   }
 
+  function selfHit() {                                    // single player self hit detection
+    for(var i = 0; i < snake.length; i++) {
+      if(snake[i+1] === head) {
+        gameOver();
+        clearTimeout(timerId);
+        timerId = null;
+        var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+        var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+        return true; 
+      }
+    }
+  }
+
+  function selfHit2() {                                   // two player self hit detection
+    for(var i = 0; i < snake.length; i++) {
+      for(var j = 0; j < snake2.length; j++) {
+        if((snake[i+1] === head) || (snake2[j] === head)) {
+          gameOver();
+          clearTimeout(timerId);
+          timerId = null;
+          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          return true; 
+        }
+        if((snake2[j+1] === head2) || (snake[i] === head2)) {
+          gameOver();
+          clearTimeout(timerId);
+          timerId = null;
+          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          return true; 
+        }
+      }
+    }
+  } 
+
   function addScore() {               // check score, set highscore
     if(score > score2) {              
       if(score > highscore){ highscore = score; }
@@ -257,10 +302,6 @@ $(function(){
     }
     setTimeout(shrink,2500);              // animate container after 2500ms
     setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
-    setTimeout(function(){    
-      $container.velocity({ top: "-1000px"},
-      { duration: 200, easing: "linear"});
-    }, 3600);
     setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 3600);
   }
 
@@ -273,9 +314,6 @@ $(function(){
   var timerId;                  // game refresh on timer
   function refresh() {
     game.update();
-  }
-  function refresh2() {
-    game.update2();
   }
 
   var game = {                  // function to build game
@@ -319,6 +357,21 @@ $(function(){
       timerId = setTimeout(refresh, speed);
     }
   };
+
+
+    //        START GAME BUTTON
+  $('#newGame').on('click', newGameEvent); 
+
+  function newGameEvent() {                             // start game on button click
+    if(running) return;                               // ignore if game already running
+    if($('#gamebox').length === 0 ) {                 // create another gamebox 
+      $container.append("<div id='gamebox'></div>");  // reset game objects to default
+    }
+    reset();
+
+    $container.velocity({ width: 540 }, [ 250, 15 ]);
+    setTimeout(callGame, 500); 
+  }
   
   function callGame() {       // Initialise function
     if(running) return;
@@ -328,14 +381,21 @@ $(function(){
     game.startGame();
   }
 
-  //        START GAME BUTTON
-  $('#newGame').on('click', newGameEvent); 
 
   // Multiplayer functionality
   var numPlayer = 1;
   $('#single').on('click', function(){ numPlayer = 1; console.log('Single Player Mode',numPlayer); });
   $('#multi').on('click', function(){ numPlayer = 2; console.log('Two Player Mode',numPlayer); });
 
+  $('#start').on('click', function(){
+    slide();
+    newGameEvent();
+  });
+
+  $('#back').on('click', function(){
+      $container.velocity({ top: "-1000px"},
+      { duration: 200, easing: "linear"});    
+  });
 
 
 
@@ -361,43 +421,7 @@ $(function(){
     console.log(speed);
   });
 
-  function selfHit() {                                    // single player self hit detection
-    for(var i = 0; i < snake.length; i++) {
-      if(snake[i+1] === head) {
-       console.log('hit');
-      }
-    }
-  }
-
-  function selfHit2() {                                   // two player self hit detection
-    for(var i = 0; i < snake.length; i++) {
-      for(var j = 0; j < snake2.length; j++) {
-        if((snake[i+1] === head) || (snake2[j] === head)) {
-          gameOver();
-          clearTimeout(timerId);
-          timerId = null;
-          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-          return true; 
-        }
-        if((snake2[j+1] === head2) || (snake[i] === head2)) {
-          gameOver();
-          clearTimeout(timerId);
-          timerId = null;
-          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-          return true; 
-        }
-      }
-    }
-  }  
-
-  //  http://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
-  $(window).keydown(function(e){
-    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
-      }
-  });
+ 
 
 
 
@@ -405,17 +429,9 @@ $(function(){
 
 
 
-function newGameEvent() {                             // start game on button click
-    if(running) return;                               // ignore if game already running
-    if($('#gamebox').length === 0 ) {                 // create another gamebox 
-      $container.append("<div id='gamebox'></div>");  // reset game objects to default
-    }
-    reset();
 
-    slide();
-    $container.velocity({ width: 540 }, [ 250, 15 ]);
-    setTimeout(callGame, 500); 
-  }
+
+
 
 
 

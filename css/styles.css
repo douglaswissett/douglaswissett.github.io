@@ -8,8 +8,6 @@
 
 
 
-
-
 html {
     height: 100%;
     -webkit-background-size: cover;
@@ -18,13 +16,9 @@ html {
     background-size: cover;
     background-repeat:no-repeat;
    
-
-background: #E6DADA; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #E6DADA , #274046); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #E6DADA , #274046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        
-        
-        
+    background: #E6DADA; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #E6DADA , #274046); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #E6DADA , #274046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 
@@ -38,8 +32,8 @@ h1 {
   float: left;
   font-size: 2.5em;
   position: absolute;
-  top: 20px;
-  left: 80px;
+  top: 60px;
+  left: 30px;
   /* source from markdotto 3D text shadow */
   text-shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9;
@@ -54,19 +48,20 @@ footer {
   font-size: 0.8em;
 }
 
+
 /**************************************
 *       Game Containers Styling       *
 ***************************************/
 
 #container {
-  min-width: 740px;                 /*    v2    max-width 600px*/
+  min-width: 940px;                 /*    v2    max-width 600px*/
   height: 540px;                    /*    v2    height 540px */
   margin: 40px auto;
   background-color: #ccc; 
   border-radius: 20px;
   position: absolute;
-  left: 460px;                                  /*    v2    500px*/
-  top: 0px;                          /*    change back to for slider animation -1000px */
+  left: 190px;                                  /*    v2    500px   */
+  top: -1000px;                         /*    change back to for slider animation -1000px */
   box-shadow: 0px 0px 30px black;
 
   
@@ -82,6 +77,13 @@ background: linear-gradient(to left, #5D4157 , #A8CABA); /* W3C, IE 10+/ Edge, F
   text-align: center;
   padding-top: 40px;
   padding-bottom: 20px;
+  position: relative;
+  top: 80px;
+  left: 40px;
+  font-size: 1.5em;
+
+  width: 300px;
+  height: 30px;
 }
 
 #gamebox {
@@ -93,7 +95,13 @@ background: linear-gradient(to left, #5D4157 , #A8CABA); /* W3C, IE 10+/ Edge, F
   text-align: center;
   font-size: 3em;
   font-weight: bold;
-  position: relative;
+  position: absolute;
+  top: 50px;
+  left: 400px;
+  float: right;
+  margin-right: 90px;
+  color: turquoise;
+  background-color: black;
 }
 
 #gameMessage {
@@ -106,52 +114,73 @@ background: linear-gradient(to left, #5D4157 , #A8CABA); /* W3C, IE 10+/ Edge, F
 
 #gameMessage2 {
   font-size: .7em;
-  color: black;
+  color: turquoise;
   position: absolute;
   top: 210px;
   left: 80px;
 }
 
 /**************************************
-*       Side Navbar Styling           *
+*       Navigation Styling            *
 ***************************************/
 
 nav {
   height: 300px;
-  width: 140px;
+  width: 220px;
   padding: 20px;
   text-align: center;
   border-radius: 5px;
-
   position: absolute;
   top: 180px;
-  left: 150px;
-
-  box-shadow: 0px 0px 20px black;
-
- 
-
-background: #5D4157; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #5D4157 , #A8CABA); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #5D4157 , #A8CABA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        
+  left: 60px;
 }
 
 #newGame {
+  width: 200px;
+  height: 80px;
   padding: 10px;
   border-radius: 10px;
-  font-size: 1.25em;
+  font-size: 1.8em;
   outline: none;
   margin-top: 30px;
   margin-bottom: 60px;
-
   box-shadow: 0px 0px 10px black;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
 }
 
 #speedSetting {
   padding: 5px;
   outline: none;
 }
+
+.multiBtn {
+  height: 40px;
+  outline: none;
+  border-radius: 5px;
+  margin-top: 60px;
+}
+
+#start {
+  margin: 0 auto;
+  display: block;
+  margin-top: 250px;
+  width: 200px;
+  height: 50px;
+}
+
+#back {
+  width: 100px;
+  height: 30px;
+  position: relative;
+  top: 20px;
+  left: 20px;
+  border-radius: 5px;
+}
+
 
 
 
