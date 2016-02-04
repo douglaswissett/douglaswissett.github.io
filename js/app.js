@@ -298,11 +298,25 @@ $(function(){
       $container.append("<div id='gamebox'></div>");  // reset game objects to default
     }
     reset();
-    // test animation below
+    
     slide();
     $container.velocity({ width: 540 }, [ 250, 15 ]);
     setTimeout(callGame, 500); 
   });
+
+
+
+
+
+
+
+  /***********************        Animations        ***********************/
+
+
+  function slide() {                          // animates container down into viewport
+    $container.velocity({ top: "0px"},
+    { duration: 200, easing: "linear"});
+  }
 
 
 
@@ -328,12 +342,6 @@ $(function(){
 
 
 
-  // beta animations
-
-  function slide() {
-    $container.velocity({ top: "0px"},
-    { duration: 200, easing: "linear"});
-  }
 
 
 //$container.velocity({ opacity: 0,top: "-50%" }, 
