@@ -1,5 +1,6 @@
-/* BODY LAYOUT */
-
+/**************************************
+*       Document Body Styling         *
+***************************************/
 body {
   margin: 0;
   background-color: grey;
@@ -13,7 +14,7 @@ h1 {
   top: 20px;
   left: 80px;
 
-  /* source from markdotto */
+  /* source from markdotto 3D text shadow */
   text-shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9,
                0 3px 0 #bbb,
@@ -28,19 +29,9 @@ h1 {
                0 20px 20px rgba(0,0,0,.15);
 }
 
-nav {
-  height: 300px;
-  width: 140px;
-  padding: 20px;
-  text-align: center;
-  border-radius: 5px;
-
-  position: absolute;
-  top: 180px;
-  left: 130px;
-
-  box-shadow: 0px 0px 20px black inset;
-}
+/**************************************
+*       Game Containers Styling       *
+***************************************/
 
 #container {
   max-width: 600px;
@@ -88,20 +79,44 @@ nav {
   left: 80px;
 }
 
+/**************************************
+*       Side Navbar Styling           *
+***************************************/
+
+nav {
+  height: 300px;
+  width: 140px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 180px;
+  left: 130px;
+
+  box-shadow: 0px 0px 20px black;
+}
+
 #newGame {
   padding: 10px;
   border-radius: 10px;
   font-size: 1.25em;
   outline: none;
   margin-bottom: 60px;
+
+  box-shadow: 0px 0px 10px black;
 }
 
 #speedSetting {
   padding: 5px;
 }
 
-/* Styles */
 
+
+
+/**************************************
+*       Game Objects Styling          *
+***************************************/
 
 .cell {
   height: 14px;
@@ -121,7 +136,3 @@ nav {
 .food {
   background-color: red;
 }
-
-
-
-
