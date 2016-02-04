@@ -304,6 +304,7 @@ $(function(){
         removeTail2();
         moveSnake();
         moveSnake2();
+        selfHit2()
         checkForEat();
         checkHit();
         checkHit2();
@@ -370,19 +371,35 @@ $(function(){
   function selfHit() {
     for(var i = 0; i < snake.length; i++) {
       if(snake[i+1] === head) {
-        console.log('hit!');
+       console.log('hit');
       }
     }
   }
 
+  function selfHit2() {
+    for(var i = 0; i < snake.length; i++) {
+      for(var j = 0; j < snake2.length; j++) {
+        if((snake[i+1] === head) || (snake2[j] === head)) {
+         console.log('hit');
+        }
+        if((snake2[j+1] === head2) || (snake[i] === head2)) {
+          console.log('hit2');
+        }
+      }
+    }
+  }  
 
 
 
+  // gameOver();
+  // clearTimeout(timerId);
+  // timerId = null;
+  // var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+  // var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+  // return true; 
 
 
-  // var piece = snake[i].split('_');
-  // pieceX = +(piece[0]);
-  // pieceY = +(piece[0]);
+
       
 
 
