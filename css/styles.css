@@ -1,0 +1,167 @@
+/**************************************
+*       Document Body Styling         *
+***************************************/
+
+html {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat:no-repeat;
+   
+
+background: #E6DADA; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #E6DADA , #274046); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #E6DADA , #274046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+        
+        
+
+}
+
+body {
+  margin: 0;
+}
+
+
+h1 {
+  display: inline-block;
+  float: left;
+  font-size: 2.5em;
+  position: absolute;
+  top: 20px;
+  left: 80px;
+  /* source from markdotto 3D text shadow */
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9;
+
+
+}
+
+footer {
+  position: absolute;
+  top: 595px;
+  left: 105px;
+  font-size: 0.8em;
+}
+
+/**************************************
+*       Game Containers Styling       *
+***************************************/
+
+#container {
+  max-width: 600px;
+  height: 540px;
+  margin: 40px auto;
+  background-color: #ccc; 
+  border-radius: 20px;
+  position: absolute;
+  left: 500px;
+  top: -1000px;
+  box-shadow: 0px 0px 30px white;
+
+  background: #517fa4; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #517fa4 , #243949); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #517fa4 , #243949); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+#scoreboard {
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+#gamebox {
+  height: 420px;
+  width: 420px;
+  margin: 0 auto;
+  padding: 0;
+  border: 5px solid black;
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  position: relative;
+}
+
+#gameMessage {
+  font-size: 0.7em;
+  color: turquoise;
+  position: absolute;
+  top: 150px;
+  left: 80px;
+}
+
+#gameMessage2 {
+  font-size: .7em;
+  color: black;
+  position: absolute;
+  top: 210px;
+  left: 80px;
+}
+
+/**************************************
+*       Side Navbar Styling           *
+***************************************/
+
+nav {
+  height: 300px;
+  width: 140px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 180px;
+  left: 250px;
+
+  box-shadow: 0px 0px 20px white;
+
+  background: #517fa4; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #517fa4 , #243949); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #517fa4 , #243949); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#newGame {
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.25em;
+  outline: none;
+  margin-bottom: 60px;
+
+  box-shadow: 0px 0px 10px black;
+}
+
+#speedSetting {
+  padding: 5px;
+}
+
+
+
+
+/**************************************
+*       Game Objects Styling          *
+***************************************/
+
+.cell {
+  height: 14px;
+  width: 14px;
+  float: left;
+  background-color: #aaa;
+}
+
+.snake {
+  background-color: turquoise;
+}
+
+.snake2 {
+  background-color: black;
+}
+
+.food {
+  background-image: url('../img/demae-ramen.jpg');
+  background-position: center;
+  background-size: contain;
+}
+
