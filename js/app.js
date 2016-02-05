@@ -13,13 +13,13 @@
 
 // TODO
 // 
-// - implement self hit detection   - fixed
+// - implement self hit detection   - buggy
 // - add highscore feature          - fixed 
 // - 2 player feature               - fixed
 // - difficulty level               - change speed settings
 // - single player mode             - fixed
 // - speed controls                 - added basic feature (need to work on design)
-// - disable multi btn on play      - 
+// - disable multi btn on play      - fixed
 // 
 //
 
@@ -221,8 +221,8 @@ $(function(){
       gameOver();
       clearTimeout(timerId);
       timerId = null;
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+      $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
       return true; // return true to end game
     }                         
   }
@@ -232,47 +232,11 @@ $(function(){
       gameOver();
       clearTimeout(timerId);
       timerId = null;
-      var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+      $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+      $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
       return true;
     }    
   }
-
-  function selfHit() {                                    // single player self hit detection
-    for(var i = 0; i < snake.length; i++) {
-      if(snake[i+1] === head) {
-        gameOver();
-        clearTimeout(timerId);
-        timerId = null;
-        var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-        var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-        return true; 
-      }
-    }
-  }
-
-  function selfHit2() {                                   // two player self hit detection
-    for(var i = 0; i < snake.length; i++) {
-      for(var j = 0; j < snake2.length; j++) {
-        if((snake[i+1] === head) || (snake2[j] === head)) {
-          gameOver();
-          clearTimeout(timerId);
-          timerId = null;
-          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-          return true; 
-        }
-        if((snake2[j+1] === head2) || (snake[i] === head2)) {
-          gameOver();
-          clearTimeout(timerId);
-          timerId = null;
-          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
-          return true; 
-        }
-      }
-    }
-  } 
 
   function addScore() {               // check score, set highscore
     if(score > score2) {              
@@ -303,6 +267,8 @@ $(function(){
     setTimeout(shrink,2500);              // animate container after 2500ms
     setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
     setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 3600);
+    setTimeout(function(){ $('#single').on('click', singleEvent)}, 3600);
+    setTimeout(function(){ $('#multi').on('click', multiEvent)}, 3600);
   }
 
 //
@@ -333,7 +299,7 @@ $(function(){
       if(numPlayer === 1) {
         removeTail();
         moveSnake();
-        selfHit();
+        //selfHit();     need to fix, buggy
         checkForEat();
         checkHit();
         addScore();
@@ -345,7 +311,7 @@ $(function(){
         removeTail2();
         moveSnake();
         moveSnake2();
-        selfHit2()
+        //selfHit2();
         checkForEat();
         checkHit();
         checkHit2();
@@ -369,7 +335,7 @@ $(function(){
     }
     reset();
 
-    $container.velocity({ width: 540 }, [ 250, 15 ]);
+    //$container.velocity({ width: 540 }, [ 250, 15 ]);
     setTimeout(callGame, 500); 
   }
   
@@ -378,14 +344,23 @@ $(function(){
     running = true;           // if game still running, don't startGame()
 
     $('#newGame').off();
+    $('.multiBtn').off();
     game.startGame();
   }
 
 
   // Multiplayer functionality
   var numPlayer = 1;
-  $('#single').on('click', function(){ numPlayer = 1; console.log('Single Player Mode',numPlayer); });
-  $('#multi').on('click', function(){ numPlayer = 2; console.log('Two Player Mode',numPlayer); });
+  $('#single').on('click', singleEvent);
+  $('#multi').on('click', multiEvent);
+
+  function singleEvent() {
+    numPlayer = 1; console.log('Single Player Mode',numPlayer);
+  }
+
+  function multiEvent() {
+    numPlayer = 2; console.log('Two Player Mode',numPlayer);
+  }
 
   $('#start').on('click', function(){
     slide();
@@ -425,6 +400,46 @@ $(function(){
 
 
 
+
+
+  function selfHit() {                                    // single player self hit detection
+    for(var i = 0; i < snake.length; i++) {
+      if(snake[i+1] === head) {
+        gameOver();
+        clearTimeout(timerId);
+        timerId = null;
+        $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+        $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+        return true; 
+      }
+    }
+  }
+
+
+// breaking after second game
+
+  function selfHit2() {                                   // two player self hit detection
+    for(var i = 0; i < snake.length; i++) {
+      for(var j = 0; j < snake2.length; j++) {
+        if((snake[i+1] === head) || (snake2[j] === head)) {
+          gameOver();
+          clearTimeout(timerId);
+          timerId = null;
+          $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+          $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          return true; 
+        }
+        if((snake2[j+1] === head2) || (snake[i] === head2)) {
+          gameOver();
+          clearTimeout(timerId);
+          timerId = null;
+          $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+          $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          return true; 
+        }
+      }
+    }
+  } 
 
 
 
