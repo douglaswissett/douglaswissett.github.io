@@ -2,8 +2,8 @@
 //
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.6.8
-//  PREVIOUS  - 2.4.1
+//  VERSION   - 2.8.5
+//  PREVIOUS  - 2.7.1
 //
 //  REFERENCES: UiTutorial to help moveSnake logic 
 //
@@ -13,22 +13,24 @@
 
 // TODO
 // 
-// - implement self hit detection   - 
+// - implement self hit detection   - fixed
 // - add highscore feature          - fixed 
 // - 2 player feature               - fixed
 // - difficulty level               - change speed settings
-// - single player mode             - 
-// - speed controls                 - added basic feature
+// - single player mode             - fixed
+// - speed controls                 - added basic feature (need to work on design)
+// - disable multi btn on play      - 
+// 
 //
 
 
 
-
+console.log('demo app');
 
 $(function(){
  
   var $container = $('#container');
-  var speed = $('#range').val();              // set game speed to input value
+  var speed = 200;                            // set game speed to input value
   var highscore = 0;
   var running = false;
         // Player 1 objects
@@ -45,6 +47,7 @@ $(function(){
   var score2 = 0;
 
   function reset() {                         // reset game variables to default
+    speed = 200; 
     snake = ['10_8','10_7','10_6'];
     tail = null;
     head = null;
@@ -58,8 +61,16 @@ $(function(){
   }
 
 
+  //  http://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+  $(window).keydown(function(e){
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+      }
+  });
+
   $(document).keydown(function(e){            // keydown listener
     var keycode = e.keyCode;                  // check keycode, set direction
+
     // player 1 directions
     switch(keycode) {
       case 38:
@@ -111,12 +122,14 @@ $(function(){
         $gamebox.append('<div class="cell" id='+i+'_'+j+'></div>');
       }
     }
-  }    
+  }
 
   function buildSnake() {                     // render snake 1 & 2 at starting position
     $('#10_8').addClass('snake');
     $('#10_7').addClass('snake');
     $('#10_6').addClass('snake');
+  }
+  function buildSnake2() {
     $('#10_28').addClass('snake2');
     $('#10_29').addClass('snake2');
     $('#10_30').addClass('snake2');
@@ -132,6 +145,8 @@ $(function(){
   function removeTail() {
     tail = snake.pop();                       // remove player1 tail
     $('#'+tail).removeClass('snake');
+  }
+  function removeTail2() {
     tail2 = snake2.pop();                     // remove player2 tail
     $('#'+tail2).removeClass('snake2');
   }
@@ -157,8 +172,9 @@ $(function(){
     head = row +'_'+ col;                     // join x and y  
     snake.unshift(head);                      // add new head position to front snake array
     $('#'+head).addClass('snake');
+  }
 
-    // Player 2 moveSnake code block
+  function moveSnake2() {                     // player 2 movement control
     var newHead2 = snake2[0].split('_');
     row2 = +(newHead2[0]);  // 10
     col2 = +(newHead2[1]);  // 28
@@ -178,7 +194,7 @@ $(function(){
     }
     head2 = row2 +'_'+ col2;
     snake2.unshift(head2);
-    $('#'+head2).addClass('snake2');
+    $('#'+head2).addClass('snake2');    
   }
 
   function checkForEat() {                  // check if snake head position matches food position
@@ -204,21 +220,59 @@ $(function(){
     if(row < 0 || col < 0 || row > 30 || col > 30) {  
       gameOver();
       clearTimeout(timerId);
+      timerId = null;
       var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
       var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
       return true; // return true to end game
-    }                         // player 2 wall collision detection
+    }                         
+  }
+
+  function checkHit2() { // player 2 wall collision detection
     if(row2 < 0 || col2 < 0 || row2 > 30 || col2 > 30) {
       gameOver();
       clearTimeout(timerId);
+      timerId = null;
       var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
       var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
       return true;
-    }
-
-    // self hit detection       TODO
-
+    }    
   }
+
+  function selfHit() {                                    // single player self hit detection
+    for(var i = 0; i < snake.length; i++) {
+      if(snake[i+1] === head) {
+        gameOver();
+        clearTimeout(timerId);
+        timerId = null;
+        var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+        var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+        return true; 
+      }
+    }
+  }
+
+  function selfHit2() {                                   // two player self hit detection
+    for(var i = 0; i < snake.length; i++) {
+      for(var j = 0; j < snake2.length; j++) {
+        if((snake[i+1] === head) || (snake2[j] === head)) {
+          gameOver();
+          clearTimeout(timerId);
+          timerId = null;
+          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          return true; 
+        }
+        if((snake2[j+1] === head2) || (snake[i] === head2)) {
+          gameOver();
+          clearTimeout(timerId);
+          timerId = null;
+          var $message = $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
+          var $message = $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          return true; 
+        }
+      }
+    }
+  } 
 
   function addScore() {               // check score, set highscore
     if(score > score2) {              
@@ -248,10 +302,7 @@ $(function(){
     }
     setTimeout(shrink,2500);              // animate container after 2500ms
     setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
-    setTimeout(function(){    
-      $container.velocity({ top: "-1000px"},
-      { duration: 200, easing: "linear"});
-    }, 3600);
+    setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 3600);
   }
 
 //
@@ -269,43 +320,82 @@ $(function(){
     startGame: function() {
       buildCells();
       buildSnake();
+
+      if(numPlayer === 2) {
+        buildSnake2();
+      }
+
       generateFood(); 
       timerId = setTimeout(refresh, speed);
-    },                          // function to update game 
-    update: function() {
-      removeTail();
-      moveSnake();
-      checkForEat();
-      checkHit();
-      addScore();
-      $('#scoreboard').text('Highscore: ' + highscore);
+    },                          
+    update: function() {        // function to update game 
 
-      if(checkHit()) return;  // if checkHit === true, stop game
+      if(numPlayer === 1) {
+        removeTail();
+        moveSnake();
+        selfHit();
+        checkForEat();
+        checkHit();
+        addScore();
+
+        $('#scoreboard').text('Highscore: ' + highscore);
+        if(checkHit()) return;  // if checkHit === true, stop game
+      } else {
+        removeTail();
+        removeTail2();
+        moveSnake();
+        moveSnake2();
+        selfHit2()
+        checkForEat();
+        checkHit();
+        checkHit2();
+        addScore();
+
+        $('#scoreboard').text('Highscore: ' + highscore);
+        if(checkHit() || checkHit2()) return;        
+      }
       timerId = setTimeout(refresh, speed);
     }
   };
-  
-  function callGame() {       // Initialise function
-    if(running) return;
-    running = true;  // if game still running, don't startGame()
-    game.startGame();
-  }
 
-  //        START GAME BUTTON
-  $('#newGame').on('click', function() {              // start game on button click
+
+    //        START GAME BUTTON
+  $('#newGame').on('click', newGameEvent); 
+
+  function newGameEvent() {                             // start game on button click
     if(running) return;                               // ignore if game already running
     if($('#gamebox').length === 0 ) {                 // create another gamebox 
       $container.append("<div id='gamebox'></div>");  // reset game objects to default
     }
     reset();
-    
-    slide();
+
     $container.velocity({ width: 540 }, [ 250, 15 ]);
     setTimeout(callGame, 500); 
+  }
+  
+  function callGame() {       // Initialise function
+    if(running) return;
+    running = true;           // if game still running, don't startGame()
+
+    $('#newGame').off();
+    game.startGame();
+  }
+
+
+  // Multiplayer functionality
+  var numPlayer = 1;
+  $('#single').on('click', function(){ numPlayer = 1; console.log('Single Player Mode',numPlayer); });
+  $('#multi').on('click', function(){ numPlayer = 2; console.log('Two Player Mode',numPlayer); });
+
+  $('#start').on('click', function(){
+    slide();
+    newGameEvent();
   });
 
-
-
+  $('#back').on('click', function(){
+      $container.velocity({ top: "-1000px"},
+      { duration: 200, easing: "linear"});    
+  });
 
 
 
@@ -321,36 +411,30 @@ $(function(){
 
 
 
-
-
-
-
-
-
-
-
   // ***********************     TESTING      // ***********************
 
 
   // speed controls
   var $range = $('#range');
   $('#range').on('change', function(e){
-    speed = $range.val();
+    speed = -($range.val());
+    console.log(speed);
   });
 
+ 
 
 
 
 
 
 
-//$container.velocity({ opacity: 0,top: "-50%" }, 
-  //{ display: "none" });
 
-    // setTimeout(function(){    
-    //   $container.velocity({ top: "-1000px"},
-    //   { duration: 200, easing: "linear"});
-    // }, 3600);
+
+
+
+
+
+
 
 
 
