@@ -299,7 +299,7 @@ $(function(){
       if(numPlayer === 1) {
         removeTail();
         moveSnake();
-        //selfHit();     need to fix, buggy
+        //selfHit();    
         checkForEat();
         checkHit();
         addScore();
@@ -334,6 +334,7 @@ $(function(){
       $container.append("<div id='gamebox'></div>");  // reset game objects to default
     }
     reset();
+    console.log('reseting')
 
     //$container.velocity({ width: 540 }, [ 250, 15 ]);
     setTimeout(callGame, 500); 
