@@ -6,6 +6,19 @@
 ***************************************/
 
 
+@font-face {
+    font-family: 'silkscreennormal';
+    src: url('slkscr-webfont.eot');
+    src: url('slkscr-webfont.eot?#iefix') format('embedded-opentype'),
+         url('slkscr-webfont.woff') format('woff'),
+         url('slkscr-webfont.ttf') format('truetype'),
+         url('slkscr-webfont.svg#silkscreennormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
 
 
 html {
@@ -15,25 +28,24 @@ html {
     -o-background-size: cover;
     background-size: cover;
     background-repeat:no-repeat;
+    font-family: 'silkscreennormal';
 }
 
 body {
   margin: 0;
 }
 
+button {
+  font-family: 'silkscreennormal';
+}
 
 h1 {
   display: inline-block;
   float: left;
-  font-size: 2.5em;
+  font-size: 2em;
   position: absolute;
   top: 60px;
   left: 30px;
-  /* source from markdotto 3D text shadow */
-  text-shadow: 0 1px 0 #ccc,
-               0 2px 0 #c9c9c9;
-
-
 }
 
 footer {
@@ -41,6 +53,7 @@ footer {
   top: 595px;
   left: 105px;
   font-size: 0.8em;
+  font-family: sans-serif;
 }
 
 
@@ -85,7 +98,7 @@ footer {
   font-size: 3em;
   font-weight: bold;
   position: absolute;
-  top: 50px;
+  top: 60px;
   left: 400px;
   float: right;
   margin-right: 90px;
@@ -94,19 +107,25 @@ footer {
 }
 
 #gameMessage {
-  font-size: 0.7em;
+  font-size: 0.5em;
   color: turquoise;
   position: absolute;
   top: 150px;
-  left: 80px;
+  left: 60px;
 }
 
 #gameMessage2 {
-  font-size: .7em;
+  font-size: .5em;
   color: turquoise;
   position: absolute;
   top: 210px;
-  left: 80px;
+  left: 60px;
+}
+
+#score {
+  position: absolute;
+  top: 40px;
+  left: 400px;
 }
 
 /**************************************
@@ -132,25 +151,25 @@ nav {
   font-size: 1.8em;
   outline: none;
   margin-top: 30px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   box-shadow: 0px 0px 10px black;
-}
-
-label {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-#speedSetting {
-  padding: 5px;
-  outline: none;
 }
 
 .multiBtn {
   height: 40px;
+  width: 180px;
   outline: none;
   border-radius: 5px;
-  margin-top: 60px;
+  box-shadow: 0px 0px 10px black;
+}
+
+#single {
+  margin-bottom: 30px;
+  box-shadow: 0px 0px 10px black;
+}
+
+#multi {
+  box-shadow: 0px 0px 10px black;
 }
 
 #start {
@@ -159,6 +178,7 @@ label {
   margin-top: 250px;
   width: 200px;
   height: 50px;
+  box-shadow: 0px 0px 10px black;
 }
 
 #back {
@@ -168,6 +188,8 @@ label {
   top: 20px;
   left: 20px;
   border-radius: 5px;
+  outline: none;
+  box-shadow: 0px 0px 10px black;
 }
 
 
@@ -186,11 +208,11 @@ label {
 }
 
 .snake {
-  background-color: turquoise;
+  background-color: rgb(255,0,255);      
 }
 
 .snake2 {
-  background-color: black;
+  background-color: rgb(0,255,0);
 }
 
 .food {
@@ -198,4 +220,13 @@ label {
   background-position: center;
   background-size: contain;
 }
+
+
+
+
+
+/**************************************
+*       Special Styling               *
+***************************************/
+
 
