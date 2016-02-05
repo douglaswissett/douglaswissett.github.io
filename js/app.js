@@ -226,8 +226,8 @@ $(function(){
       gameOver();
       clearTimeout(timerId);
       timerId = null;
-      $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+      $gamebox.append('<div id="gameMessage">'+'Player one scored: '+score+'</div>');
+      $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
       return true; // return true to end game
     }                         
   }
@@ -237,8 +237,8 @@ $(function(){
       gameOver();
       clearTimeout(timerId);
       timerId = null;
-      $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-      $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+      $gamebox.append('<div id="gameMessage">'+'Player one scored: '+score+'</div>');
+      $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
       return true;
     }    
   }
@@ -271,7 +271,7 @@ $(function(){
     }
     setTimeout(shrink,2500);              // animate container after 2500ms
     setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
-    setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 3600);
+    setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 5000);
     setTimeout(function(){ $('#single').on('click', singleEvent)}, 3600);
     setTimeout(function(){ $('#multi').on('click', multiEvent)}, 3600);
   }
@@ -308,7 +308,7 @@ $(function(){
         checkForEat();
         checkHit();
         addScore();
-
+        setScore();
         $('#scoreboard').text('Highscore: ' + highscore);
         if(checkHit()) return;  // if checkHit === true, stop game
       } else {
@@ -341,7 +341,6 @@ $(function(){
     reset();
     console.log('reseting')
 
-    //$container.velocity({ width: 540 }, [ 250, 15 ]);
     setTimeout(callGame, 500); 
   }
   
@@ -395,13 +394,19 @@ $(function(){
 
 
   // speed controls
-  var $range = $('#range');
-  $('#range').on('change', function(e){
-    speed = -($range.val());
-    console.log(speed);
-  });
+  // var $range = $('#range');
+  // $('#range').on('change', function(e){
+  //   speed = -($range.val());
+  //   console.log(speed);
+  // });
 
  
+
+
+  function setScore() {
+    $('#score').text('Current score: ' + score);
+  }
+
 
 
 
@@ -413,8 +418,8 @@ $(function(){
         gameOver();
         clearTimeout(timerId);
         timerId = null;
-        $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-        $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+        $gamebox.append('<div id="gameMessage">'+'Player one scored: '+score+'</div>');
+        $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
         return true; 
       }
     }
@@ -430,16 +435,16 @@ $(function(){
           gameOver();
           clearTimeout(timerId);
           timerId = null;
-          $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-          $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          $gamebox.append('<div id="gameMessage">'+'Player one scored: '+score+'</div>');
+          $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
           return true; 
         }
         if((snake2[j+1] === head2) || (snake[i] === head2)) {
           gameOver();
           clearTimeout(timerId);
           timerId = null;
-          $gamebox.append('<div id="gameMessage">'+'Player1 scored: '+score+'</div>');
-          $gamebox.append('<div id="gameMessage2">'+'Player2 scored: '+score2+'</div>');
+          $gamebox.append('<div id="gameMessage">'+'Player one scored: '+score+'</div>');
+          $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
           return true; 
         }
       }
