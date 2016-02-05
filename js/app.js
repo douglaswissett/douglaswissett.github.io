@@ -13,14 +13,19 @@
 
 // TODO
 // 
-// - implement self hit detection   - buggy
+// - implement self hit detection   - buggy        // might have a fix, delay next game
 // - add highscore feature          - fixed 
 // - 2 player feature               - fixed
 // - difficulty level               - change speed settings
 // - single player mode             - fixed
 // - speed controls                 - added basic feature (need to work on design)
 // - disable multi btn on play      - fixed
-// 
+// - add delay on new game btn      -             // this will hopefully fix hit detection bug 
+//
+// - add current score
+//  - fix highscoring not resetting - 
+//  - Bug fixing & refactoring
+//  - styling  
 //
 
 
@@ -52,12 +57,12 @@ $(function(){
     tail = null;
     head = null;
     direction = 'right';
-    score = score;
+    score = 0;
     snake2 = ['10_28','10_29','10_30'];
     tail2 = null;
     head2 = null;
     direction2 = 'left';
-    score2 = score2;  
+    score2 = 0;  
   }
 
 
@@ -365,7 +370,6 @@ $(function(){
 
   $('#start').on('click', function(){
     slide();
-    newGameEvent();
   });
 
   $('#back').on('click', function(){
@@ -441,16 +445,6 @@ $(function(){
       }
     }
   } 
-
-
-
-
-
-
-
-
-
-
 
 
 
