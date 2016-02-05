@@ -13,19 +13,17 @@
 
 // TODO
 // 
-// - implement self hit detection   - buggy        // might have a fix, delay next game
-// - add highscore feature          - fixed 
-// - 2 player feature               - fixed
-// - difficulty level               - change speed settings
-// - single player mode             - fixed
-// - speed controls                 - added basic feature (need to work on design)
-// - disable multi btn on play      - fixed
-// - add delay on new game btn      -             // this will hopefully fix hit detection bug 
-//
-// - add current score
-//  - fix highscoring not resetting - 
-//  - Bug fixing & refactoring
-//  - styling  
+//  - implement self hit detection   - fixed, glitchy        // might have a fix, delay next game
+//  - add highscore feature          - fixed 
+//  - 2 player feature               - fixed
+//  - single player mode             - fixed
+//  - speed controls                 - added basic feature   -- removed
+//  - disable multi btn on play      - fixed
+//  - add delay on new game btn      - fixed         // this will hopefully fix hit detection bug 
+//  - add current score              - added
+//  - fix highscoring not resetting  - fixed
+//  - Bug fixing & refactoring       - in progress
+//  - styling                        - in progress
 //
 
 
@@ -227,7 +225,9 @@ $(function(){
       clearTimeout(timerId);
       timerId = null;
       $gamebox.append('<div id="gameMessage">'+'Player one scored: '+score+'</div>');
-      $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
+      if(numPlayer === 2) {
+        $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
+      }
       return true; // return true to end game
     }                         
   }
@@ -269,11 +269,11 @@ $(function(){
       $('#gameMessage2').remove();
       $gamebox.text('');    // clear game window text
     }
-    setTimeout(shrink,2500);              // animate container after 2500ms
-    setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
+    //setTimeout(shrink,3000);              // animate container after 2500ms
+    //setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
     setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 5000);
-    setTimeout(function(){ $('#single').on('click', singleEvent)}, 3600);
-    setTimeout(function(){ $('#multi').on('click', multiEvent)}, 3600);
+    $('#single').on('click', singleEvent);
+    $('#multi').on('click', multiEvent);
   }
 
 //
@@ -304,7 +304,7 @@ $(function(){
       if(numPlayer === 1) {
         removeTail();
         moveSnake();
-        //selfHit();    
+        selfHit();    
         checkForEat();
         checkHit();
         addScore();
@@ -316,11 +316,12 @@ $(function(){
         removeTail2();
         moveSnake();
         moveSnake2();
-        //selfHit2();
+        selfHit2();
         checkForEat();
         checkHit();
         checkHit2();
         addScore();
+        setScore2();
 
         $('#scoreboard').text('Highscore: ' + highscore);
         if(checkHit() || checkHit2()) return;        
@@ -330,11 +331,17 @@ $(function(){
   };
 
 
+
+
+
+
+
     //        START GAME BUTTON
   $('#newGame').on('click', newGameEvent); 
 
   function newGameEvent() {                             // start game on button click
     if(running) return;                               // ignore if game already running
+    $('#gamebox').remove();
     if($('#gamebox').length === 0 ) {                 // create another gamebox 
       $container.append("<div id='gamebox'></div>");  // reset game objects to default
     }
@@ -354,16 +361,27 @@ $(function(){
   }
 
 
+
+
+
+
+
   // Multiplayer functionality
   var numPlayer = 1;
   $('#single').on('click', singleEvent);
   $('#multi').on('click', multiEvent);
 
   function singleEvent() {
+    if(numPlayer === 2) {
+      highscore = 0;
+    }
     numPlayer = 1; console.log('Single Player Mode',numPlayer);
   }
 
   function multiEvent() {
+    if(numPlayer === 1) {
+      highscore = 0;
+    }
     numPlayer = 2; console.log('Two Player Mode',numPlayer);
   }
 
@@ -406,7 +424,9 @@ $(function(){
   function setScore() {
     $('#score').text('Current score: ' + score);
   }
-
+  function setScore2() {
+    $('#score').text('Current score P1: ' + score + '     P2: ' + score2);
+  }
 
 
 
@@ -419,7 +439,9 @@ $(function(){
         clearTimeout(timerId);
         timerId = null;
         $gamebox.append('<div id="gameMessage">'+'Player one scored: '+score+'</div>');
-        $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
+        if(numPlayer === 2) {
+          $gamebox.append('<div id="gameMessage2">'+'Player two scored: '+score2+'</div>');
+        }
         return true; 
       }
     }

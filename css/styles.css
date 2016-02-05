@@ -111,7 +111,7 @@ footer {
   color: turquoise;
   position: absolute;
   top: 150px;
-  left: 80px;
+  left: 60px;
 }
 
 #gameMessage2 {
@@ -119,7 +119,7 @@ footer {
   color: turquoise;
   position: absolute;
   top: 210px;
-  left: 80px;
+  left: 60px;
 }
 
 #score {
@@ -208,11 +208,11 @@ nav {
 }
 
 .snake {
-  background-color: turquoise;
+  background-color: rgb(255,0,255);      
 }
 
 .snake2 {
-  background-color: black;
+  background-color: rgb(0,255,0);
 }
 
 .food {
