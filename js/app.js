@@ -243,6 +243,7 @@ $(function(){
     }    
   }
 
+  $('#scoreboard').text('Highscore: ' + highscore);
   function addScore() {               // check score, set highscore
     if(score > score2) {              
       if(score > highscore){ highscore = score; }
@@ -250,6 +251,15 @@ $(function(){
       if(score2 > highscore){ highscore = score2; }
     }
   }
+
+  function setScore() {
+    $('#score').text('Current score: ' + score);
+  }
+
+  function setScore2() {
+    $('#score').text('Current score P1: ' + score + '     P2: ' + score2);
+  }
+
 
   function gameOver() {                   // clear game window 
     for(var i = 0; i < 30; i++) {         // running status: false
@@ -348,7 +358,10 @@ $(function(){
     reset();
     console.log('reseting')
 
-    setTimeout(callGame, 500); 
+    // start count down
+    startCountDown();
+
+    setTimeout(callGame, 2500);
   }
   
   function callGame() {       // Initialise function
@@ -367,15 +380,19 @@ $(function(){
 
 
   // Multiplayer functionality
+  var gameMode = 'Single Player';
   var numPlayer = 1;
   $('#single').on('click', singleEvent);
   $('#multi').on('click', multiEvent);
+  $('#gameMode').text(gameMode).css('color', 'aqua');
 
   function singleEvent() {
     if(numPlayer === 2) {
       highscore = 0;
     }
     numPlayer = 1; console.log('Single Player Mode',numPlayer);
+    gameMode = 'Single player';
+    $('#gameMode').text(gameMode).css('color','aqua');
   }
 
   function multiEvent() {
@@ -383,6 +400,8 @@ $(function(){
       highscore = 0;
     }
     numPlayer = 2; console.log('Two Player Mode',numPlayer);
+    gameMode = 'Two player';
+    $('#gameMode').text(gameMode).css('color','yellow');
   }
 
   $('#start').on('click', function(){
@@ -406,30 +425,7 @@ $(function(){
   }
 
 
-
-
   // ***********************     TESTING      // ***********************
-
-
-  // speed controls
-  // var $range = $('#range');
-  // $('#range').on('change', function(e){
-  //   speed = -($range.val());
-  //   console.log(speed);
-  // });
-
- 
-
-
-  function setScore() {
-    $('#score').text('Current score: ' + score);
-  }
-  function setScore2() {
-    $('#score').text('Current score P1: ' + score + '     P2: ' + score2);
-  }
-
-
-
 
 
   function selfHit() {                                    // single player self hit detection
@@ -446,9 +442,6 @@ $(function(){
       }
     }
   }
-
-
-// breaking after second game
 
   function selfHit2() {                                   // two player self hit detection
     for(var i = 0; i < snake.length; i++) {
@@ -472,6 +465,31 @@ $(function(){
       }
     }
   } 
+
+  
+  // new game countdown timer
+  function startCountDown() {
+    var intervalID = window.setInterval(countDown, 500);
+    var tick = 3;
+    function countDown() {
+        $('#timer').text(tick).css('color', 'aqua');
+        tick -=1;
+
+      if(tick === 0) {
+        clearInterval(intervalID);
+        setTimeout(function(){ $('#timer').text('Start!').css('color', '#00FF33'); },500);
+        setTimeout(function(){ $('#timer').text('') }, 1200);
+      }
+    }
+  }
+
+  
+
+
+  // make container div draggable
+  $(function(){
+    $container.draggable();
+  });
 
 
 

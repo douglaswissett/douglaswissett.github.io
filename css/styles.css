@@ -33,6 +33,8 @@ html {
 
 body {
   margin: 0;
+  background-image: url('../img/3dbackground.jpg');
+  background-size: cover;
 }
 
 button {
@@ -42,18 +44,19 @@ button {
 h1 {
   display: inline-block;
   float: left;
-  font-size: 2em;
+  font-size: 5em;
   position: absolute;
-  top: 60px;
-  left: 30px;
+  top: 100px;
+  left: 200px;
 }
 
 footer {
-  position: absolute;
-  top: 595px;
-  left: 105px;
+  position: fixed;
+  bottom: 0;
+  left: 80px;
   font-size: 0.8em;
   font-family: sans-serif;
+  color: white;
 }
 
 
@@ -72,7 +75,7 @@ footer {
   top: -1000px;                         /*    change back to for slider animation -1000px */
   box-shadow: 0px 0px 30px black;
         
-
+  cursor: move;
 }
 
 #scoreboard {
@@ -80,10 +83,26 @@ footer {
   padding-top: 40px;
   padding-bottom: 20px;
   position: relative;
-  top: 80px;
+  top: 70px;
   left: 40px;
   font-size: 1.5em;
 
+  width: 300px;
+  height: 30px;
+}
+
+#label {
+  position: relative;
+  top: 64px;
+  left: 64px;
+}
+
+#gameMode {
+  text-align: center;
+  position: relative;
+  top: 50px;
+  left: 130px;
+  font-size: 1em;
   width: 300px;
   height: 30px;
 }
@@ -93,7 +112,7 @@ footer {
   width: 438px;
   margin: 0 auto;
   padding: 0;
-  border: 5px solid black;
+  border: 5px solid aqua;
   text-align: center;
   font-size: 3em;
   font-weight: bold;
@@ -102,13 +121,13 @@ footer {
   left: 400px;
   float: right;
   margin-right: 90px;
-  color: turquoise;
+  color: aqua;
   background-color: black;
 }
 
 #gameMessage {
   font-size: 0.5em;
-  color: turquoise;
+  color: aqua;
   position: absolute;
   top: 150px;
   left: 60px;
@@ -116,7 +135,7 @@ footer {
 
 #gameMessage2 {
   font-size: .5em;
-  color: turquoise;
+  color: gold;
   position: absolute;
   top: 210px;
   left: 60px;
@@ -126,6 +145,15 @@ footer {
   position: absolute;
   top: 40px;
   left: 400px;
+}
+
+#timer {
+  position: absolute;
+  top: 50px;
+  left: 220px;
+  font-size: 2.5em;
+  width: 150px;
+  height: 30px;
 }
 
 /**************************************
@@ -173,12 +201,17 @@ nav {
 }
 
 #start {
-  margin: 0 auto;
+  position: absolute;
+  top: 70px;
+  left: 520px;
   display: block;
   margin-top: 250px;
   width: 200px;
   height: 50px;
+  color: white;
+  background-color: black;
   box-shadow: 0px 0px 10px black;
+  border-radius: 10px;
 }
 
 #back {
@@ -204,15 +237,15 @@ nav {
   height: 14.6px;                                 /*   v2    14 x 14 */
   width: 14.6px;
   float: left;
-  background-color: #aaa;
+  background-color: black;
 }
 
 .snake {
-  background-color: rgb(255,0,255);      
+  background-color: aqua;      
 }
 
 .snake2 {
-  background-color: rgb(0,255,0);
+  background-color: gold;
 }
 
 .food {
@@ -229,4 +262,111 @@ nav {
 *       Special Styling               *
 ***************************************/
 
+
+#start:hover {
+  color: white;
+}
+
+#newGame:hover {
+  color: #00FF33;
+}
+
+#single:hover {
+  color: aqua;
+}
+
+#multi:hover {
+  color: yellow;
+}
+
+#back:hover {
+  color: white;
+}
+
+
+/*This is coded CSS rainbow*/
+
+.rainbow {
+-webkit-animation:rainbow 1s infinite;
+-ms-animation:rainbow 1s infinite;
+-o-animation:rainbow 1s infinite;
+animation:rainbow 1s infinite;
+}
+@-webkit-keyframes rainbow {
+0% {color: #ff0000;}
+10% {color: #ff8000;}
+20% {color: #ffff00;}
+30% {color: #80ff00;}
+40% {color: #00ff00;}
+50% {color: #00ff80;}
+60% {color: #00ffff;}
+70% {color: #0080ff;}
+80% {color: #0000ff;}
+90% {color: #8000ff;}
+100% {color: #ff0080;}
+}
+@-ms-keyframes rainbow {
+0% {color: #ff0000;}
+10% {color: #ff8000;}
+20% {color: #ffff00;}
+30% {color: #80ff00;}
+40% {color: #00ff00;}
+50% {color: #00ff80;}
+60% {color: #00ffff;}
+70% {color: #0080ff;}
+80% {color: #0000ff;}
+90% {color: #8000ff;}
+100% {color: #ff0080;}
+}
+@-o-keyframes rainbow {
+0% {color: #ff0000;}
+10% {color: #ff8000;}
+20% {color: #ffff00;}
+30% {color: #80ff00;}
+40% {color: #00ff00;}
+50% {color: #00ff80;}
+60% {color: #00ffff;}
+70% {color: #0080ff;}
+80% {color: #0000ff;}
+90% {color: #8000ff;}
+100% {color: #ff0080;}
+}
+@keyframes rainbow {
+0% {color: #ff0000;}
+10% {color: #ff8000;}
+20% {color: #ffff00;}
+30% {color: #80ff00;}
+40% {color: #00ff00;}
+50% {color: #00ff80;}
+60% {color: #00ffff;}
+70% {color: #0080ff;}
+80% {color: #0000ff;}
+90% {color: #8000ff;}
+100% {color: #ff0080;}
+}
+
+
+.hvr-pulse-shrink {
+  outline: none;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hvr-pulse-shrink {
+  -webkit-animation-name: hvr-pulse-shrink;
+  animation-name: hvr-pulse-shrink;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
 
