@@ -337,9 +337,6 @@ $(function(){
 
 
 
-
-
-
     //        START GAME BUTTON
   $('#newGame').on('click', newGameEvent); 
 
@@ -366,9 +363,6 @@ $(function(){
     $('.multiBtn').off();
     game.startGame();
   }
-
-
-
 
 
 
@@ -477,34 +471,34 @@ $(function(){
   }
 
 
-
-
-
-
   // instruction box
-
   $('#howToBtn').on('click', instruction);
   function instruction() {
+    $('#howToBtn').off();
     $('body').append('<div id="wrapper"></div>');
     var $wrapper = $('#wrapper');
-    $wrapper.draggable();
-    $wrapper.velocity({ left: "320px"},
-      { duration: 200, easing: "linear"});
-    $wrapper.append('<button id="wrapperBack">Back</button>');
-    $wrapper.append('<h3>Instructions:</h3>');
+    $wrapper.draggable();                   // instruction box draggable
 
+    $wrapper.velocity({ left: "320px"},     // how to play btn animation
+      { duration: 200, easing: "linear"});
+
+    $wrapper.append('<button id="wrapperBack" class="hvr-shrink">Back</button>');
+    $wrapper.append('<h3>Instructions:</h3>');
+    $wrapper.append('<p id="p1">Avoid hitting the wall and yourself! Each time you eat food your snake length and speed increases. Try to score 200 points!</p>');
+    $wrapper.append('<p id="p3">Player 2 direction keys:</p>');
+    $wrapper.append('<p id="p4">Player 1 direction keys:</p>');
+    $wrapper.append('<div id="arrows"></div>');
+
+
+    // back btn animation
     $('#wrapperBack').on('click', function() {
+      $('#howToBtn').on('click', instruction);
       $wrapper.velocity({ left: "2000px"},
       { duration: 200, easing: "linear"});
       setTimeout(function(){ $wrapper.remove(); },500);
     });
 
   }
-
-
-
-
-
 
 
 
