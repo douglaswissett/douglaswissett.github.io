@@ -36,33 +36,26 @@ $(function(){
   var speed = 200;                            // set game speed to input value
   var highscore = 0;
   var running = false;
-        // Player 1 objects
-  var snake = ['10_8','10_7','10_6'];         // array to hold snake 
-  var tail;
-  var head;
-  var direction = 'right';
-  var score = 0;
-        // player 2 objects
-  var snake2 = ['10_28','10_29','10_30'];     // array to hold snake2 
-  var tail2;
-  var head2;
-  var direction2 = 'left';
-  var score2 = 0;
 
   function reset() {                         // reset game variables to default
     speed = 200; 
-    snake = ['10_8','10_7','10_6'];
+    snake = ['10_28','10_29','10_30'];
     tail = null;
     head = null;
-    direction = 'right';
+    direction = 'left';
     score = 0;
-    snake2 = ['10_28','10_29','10_30'];
+    snake2 = ['10_2','10_1','10_0'];
     tail2 = null;
     head2 = null;
-    direction2 = 'left';
+    direction2 = 'right';
     score2 = 0;  
   }
 
+
+  // make container div draggable
+  $(function(){
+    $container.draggable();
+  });
 
   //  http://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
   $(window).keydown(function(e){
@@ -93,7 +86,7 @@ $(function(){
         direction = 'left';
         break;
       default:
-        direction;
+        //direction;
     }
     // player 2 directions
     switch(keycode) {
@@ -114,7 +107,7 @@ $(function(){
         direction2 = 'left';
         break;
       default:
-        direction2;
+        //direction2;
     }
   });
 
@@ -127,15 +120,16 @@ $(function(){
     }
   }
 
-  function buildSnake() {                     // render snake 1 & 2 at starting position
-    $('#10_8').addClass('snake');
-    $('#10_7').addClass('snake');
-    $('#10_6').addClass('snake');
+  function buildSnake() {                    // render snake 1 & 2 at starting position
+    $('#10_28').addClass('snake');
+    $('#10_29').addClass('snake');
+    $('#10_30').addClass('snake');
   }
-  function buildSnake2() {
-    $('#10_28').addClass('snake2');
-    $('#10_29').addClass('snake2');
-    $('#10_30').addClass('snake2');
+
+  function buildSnake2() {                     
+    $('#10_2').addClass('snake2');
+    $('#10_1').addClass('snake2');
+    $('#10_0').addClass('snake2');
   }
 
   function generateFood() {                   // generate random number between 0-29 for x & y coordinates
@@ -466,7 +460,6 @@ $(function(){
     }
   } 
 
-  
   // new game countdown timer
   function startCountDown() {
     var intervalID = window.setInterval(countDown, 500);
@@ -477,19 +470,40 @@ $(function(){
 
       if(tick === 0) {
         clearInterval(intervalID);
-        setTimeout(function(){ $('#timer').text('Start!').css('color', '#00FF33'); },500);
+        setTimeout(function(){ $('#timer').text('Start!').css('color', 'lime'); },500);
         setTimeout(function(){ $('#timer').text('') }, 1200);
       }
     }
   }
 
-  
 
 
-  // make container div draggable
-  $(function(){
-    $container.draggable();
-  });
+
+
+
+  // instruction box
+
+  $('#howToBtn').on('click', instruction);
+  function instruction() {
+    $('body').append('<div id="wrapper"></div>');
+    var $wrapper = $('#wrapper');
+    $wrapper.draggable();
+    $wrapper.velocity({ left: "320px"},
+      { duration: 200, easing: "linear"});
+    $wrapper.append('<button id="wrapperBack">Back</button>');
+    $wrapper.append('<h3>Instructions:</h3>');
+
+    $('#wrapperBack').on('click', function() {
+      $wrapper.velocity({ left: "2000px"},
+      { duration: 200, easing: "linear"});
+      setTimeout(function(){ $wrapper.remove(); },500);
+    });
+
+  }
+
+
+
+
 
 
 
