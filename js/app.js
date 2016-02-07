@@ -38,7 +38,7 @@ $(function(){
   var running = false;
 
   function reset() {                         // reset game variables to default
-    speed = 200; 
+    speed = 100; 
     snake = ['10_28','10_29','10_30'];
     tail = null;
     head = null;
@@ -198,18 +198,25 @@ $(function(){
     if(head === food) {                     // increase snake length by 1
       snake.push(tail);                     // remove food from grid
       $('#'+tail).addClass('snake');        // increase snake speed
-      $('#'+food).removeClass('food');      // generate a new food piece
-      speed -= 10;                          // increase player score by 10
-      generateFood();
+      $('#'+food).removeClass('food');
+      speed -= 5;                           // generate a new food piece
+      generateFood();                        // increase player score by 10
       score+=10;
+      if(speed < 50) {
+        speed = 50;
+      }
+      console.log(speed);
     }
     if(head2 === food) {
       snake2.push(tail2);
       $('#'+tail2).addClass('snake2');
       $('#'+food).removeClass('food');
-      speed -= 10;
+      speed -= 5;
       generateFood();
       score2+=10;
+      if(speed < 50) {
+        speed = 50;
+      }
     }
   }
 
