@@ -33,8 +33,9 @@ html {
 
 body {
   margin: 0;
-  background-image: url('../img/3dbackground.jpg');
-  background-size: cover;
+  background-color: black;
+  /*background-image: url('../img/3dbackground.jpg');
+  background-size: cover;*/
 }
 
 button {
@@ -315,7 +316,7 @@ nav {
   box-shadow: 0 0 10px white inset;
 }
 
-
+/*sourced from Rainbow CSS hover effects*/
 /*This is coded CSS rainbow*/
 
 .rainbow {
