@@ -484,7 +484,7 @@ $(function(){
 
     $wrapper.append('<button id="wrapperBack" class="hvr-shrink">Back</button>');
     $wrapper.append('<h3>Instructions:</h3>');
-    $wrapper.append('<p id="p1">Avoid hitting the wall and yourself! Each time you eat food your snake length and speed increases. Try to score 200 points!</p>');
+    $wrapper.append('<p id="p1">Avoid hitting the wall and yourself! Each time you eat food your snakes length and speed increases. Try to score 200 points!</p>');
     $wrapper.append('<p id="p3">Player 2 direction keys:</p>');
     $wrapper.append('<p id="p4">Player 1 direction keys:</p>');
     $wrapper.append('<div id="arrows"></div>');
