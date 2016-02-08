@@ -137,16 +137,16 @@ $(function(){
     food = x +'_'+ y;                         // store food's position to check for detection later
   }
 
-  function removeTail() {
+  function removeTail() {                     // REFERENCE: UiTutorial remove logic
     tail = snake.pop();                       // remove player1 tail
     $('#'+tail).removeClass('snake');
   }
-  function removeTail2() {
+  function removeTail2() {                    // REFERENCE: UiTutorial remove logic
     tail2 = snake2.pop();                     // remove player2 tail
     $('#'+tail2).removeClass('snake2');
   }
 
-  function moveSnake() {
+  function moveSnake() {                       // REFERENCE: UiTutorial moveSnake logic
     var newHead = snake[0].split('_');         // grab snake head, get x & y position
     row = +(newHead[0]);  // 10
     col = +(newHead[1]);  // 8
@@ -170,7 +170,7 @@ $(function(){
   }
 
   function moveSnake2() {                     // player 2 movement control
-    var newHead2 = snake2[0].split('_');
+    var newHead2 = snake2[0].split('_');      // REFERENCE: UiTutorial moveSnake logic
     row2 = +(newHead2[0]);  // 10
     col2 = +(newHead2[1]);  // 28
     switch(direction2) {
