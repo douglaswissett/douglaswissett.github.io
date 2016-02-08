@@ -1,11 +1,12 @@
 //**********************************************************************
 //
+//  TITLE     - WDI Bowie 19/1 - Project 1 - Create in-browser game
 //  AUTHOR    - DOUGLAS WISSETT WALKER
 //  DATE      - 02/02/2016
-//  VERSION   - 2.8.5
-//  PREVIOUS  - 2.7.1
+//  VERSION   - 2.9.1
+//  PREVIOUS  - 2.8.4
 //
-//  REFERENCES: UiTutorial to help moveSnake logic 
+//  REFERENCES: UiTutorial moveSnake logic 
 //
 //**********************************************************************
 
@@ -22,13 +23,10 @@
 //  - add delay on new game btn      - fixed         // this will hopefully fix hit detection bug 
 //  - add current score              - added
 //  - fix highscoring not resetting  - fixed
-//  - Bug fixing & refactoring       - in progress
-//  - styling                        - in progress
+//  - Bug fixing & refactoring       - fixed major bugs
+//  - styling                        - done
 //
 
-
-
-console.log('demo app');
 
 $(function(){
  
@@ -205,7 +203,7 @@ $(function(){
       if(speed < 50) {
         speed = 50;
       }
-      console.log(speed);
+      console.log('Current speed at: ' + speed);
     }
     if(head2 === food) {
       snake2.push(tail2);
@@ -217,6 +215,7 @@ $(function(){
       if(speed < 50) {
         speed = 50;
       }
+      console.log('Current speed at: ' + speed);
     }
   }
 
@@ -271,18 +270,7 @@ $(function(){
     $gamebox.text('Game Over!');
     running = false;
 
-    // game over animations
-    function shrink(){
-      $gamebox.velocity({ height: 0 })
-      .velocity({width:0});
-      $()
-      $('#gameMessage').remove();     // remove score messages
-      $('#gameMessage2').remove();
-      $gamebox.text('');    // clear game window text
-    }
-    //setTimeout(shrink,3000);              // animate container after 2500ms
-    //setTimeout(function(){$('#gamebox').remove()},3340); // remove container after 3340ms     ( Game finish )
-    setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 5000);
+    setTimeout(function(){ $('#newGame').on('click', newGameEvent)}, 2000);
     $('#single').on('click', singleEvent);
     $('#multi').on('click', multiEvent);
   }
@@ -348,8 +336,12 @@ $(function(){
   $('#newGame').on('click', newGameEvent); 
 
   function newGameEvent() {                             // start game on button click
-    if(running) return;                               // ignore if game already running
+    if(running) return;               // ignore if game already running
+                                  
     $('#gamebox').remove();
+    $('#newGame').off();
+    $('.multiBtn').off();
+
     if($('#gamebox').length === 0 ) {                 // create another gamebox 
       $container.append("<div id='gamebox'></div>");  // reset game objects to default
     }
@@ -358,7 +350,6 @@ $(function(){
 
     // start count down
     startCountDown();
-
     setTimeout(callGame, 2500);
   }
   
@@ -366,12 +357,8 @@ $(function(){
     if(running) return;
     running = true;           // if game still running, don't startGame()
 
-    $('#newGame').off();
-    $('.multiBtn').off();
     game.startGame();
   }
-
-
 
 
   // Multiplayer functionality
@@ -399,6 +386,8 @@ $(function(){
     $('#gameMode').text(gameMode).css('color','yellow');
   }
 
+
+  // splash page animation buttons
   $('#start').on('click', function(){
     slide();
   });
@@ -471,12 +460,11 @@ $(function(){
 
       if(tick === 0) {
         clearInterval(intervalID);
-        setTimeout(function(){ $('#timer').text('Start!').css('color', 'lime'); },500);
+        setTimeout(function(){ $('#timer').text('Go!').css('color', 'lime'); },500);
         setTimeout(function(){ $('#timer').text('') }, 1200);
       }
     }
   }
-
 
   // instruction box
   $('#howToBtn').on('click', instruction);
@@ -491,7 +479,7 @@ $(function(){
 
     $wrapper.append('<button id="wrapperBack" class="hvr-shrink">Back</button>');
     $wrapper.append('<h3>Instructions:</h3>');
-    $wrapper.append('<p id="p1">Avoid hitting the wall and yourself! Each time you eat food your snakes length and speed increases. Try to score 200 points!</p>');
+    $wrapper.append('<p id="p1">Avoid hitting the wall and yourself! Each time you eat food your snakes length and speed increases. Try to beat the highscore!<br>WARNING: fast key presses may result in death!</p>');
     $wrapper.append('<p id="p3">Player 2 direction keys:</p>');
     $wrapper.append('<p id="p4">Player 1 direction keys:</p>');
     $wrapper.append('<div id="arrows"></div>');
@@ -504,7 +492,6 @@ $(function(){
       { duration: 200, easing: "linear"});
       setTimeout(function(){ $wrapper.remove(); },500);
     });
-
   }
 
 
