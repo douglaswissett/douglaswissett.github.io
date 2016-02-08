@@ -73,7 +73,7 @@ footer {
   background-color: rgb(64, 64, 64); 
   border-radius: 20px;
   position: absolute;
-  left: 190px;                                  /*    v2    500px   */
+  left: 150px;                                  /*    v2    500px   */
   top: -1000px;                         /*    change back to for slider animation -1000px */
   box-shadow: 0 0 20px aqua inset;
         
