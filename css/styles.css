@@ -67,7 +67,7 @@ footer {
 ***************************************/
 
 #container {
-  min-width: 940px;                 /*    v2    max-width 600px*/
+  width: 940px;                 /*    v2    max-width 600px*/
   height: 540px;                    /*    v2    height 540px */
   margin: 40px auto;
   background-color: rgb(64, 64, 64); 
@@ -452,7 +452,7 @@ h3 {
 #p1 {
   width: 460px;
   position: absolute;
-  top: 90px;
+  top: 75px;
   left: 60px;
 }
 
